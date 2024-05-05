@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.vbounties.superhub.features.presentation.design_system.SuperhubTheme
+import com.vbounties.superhub.features.presentation.screen.test_screen.TestScreen
 import com.vbounties.superhub.features.presentation.screen.test_screen.photo_capture_test.CameraView
 import com.vbounties.superhub.features.presentation.screen.test_screen.photo_capture_test.PhotoCaptureTest
 import com.vbounties.superhub.features.presentation.screen.test_screen.photo_capture_test.RequestCameraPermission
@@ -36,8 +37,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SuperhubTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { //innerPadding ->
-                    //VoiceRecordTest()
-                    PhotoCaptureTest()
+                    TestScreen()
                 }
             }
         }

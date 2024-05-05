@@ -3,10 +3,12 @@ package com.vbounties.superhub.features.presentation.screen.test_screen.photo_ca
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.media.Image
+import androidx.camera.core.CameraSelector
 import androidx.camera.view.CameraController
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.video.ExperimentalVideo
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +36,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -51,6 +54,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun PhotoCaptureTest(){
     val viewModel = hiltViewModel<PhotoViewModel>()
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+    val showCapturedImage = remember { mutableStateOf(false) }
 
     var isCameraPermissionGranted by remember { mutableStateOf(false) }
     RequestCameraPermission{ isCameraPermissionGranted = true }
@@ -64,10 +68,19 @@ fun PhotoCaptureTest(){
 
     Scaffold(
         content = {
-            Box(modifier = Modifier.fillMaxSize()) {
-                if(isCameraPermissionGranted){
-                    CameraView(controller, Modifier.fillMaxSize())
+            Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray), contentAlignment = Alignment.Center) {
+                if(showCapturedImage.value){
+                    Image(
+                        bitmap = bitmap.value!!.asImageBitmap(),
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize(0.7f).padding(bottom = 32.dp).clip(RoundedCornerShape(16.dp)),
+                        contentScale = androidx.compose.ui.layout.ContentScale.Crop)
+                } else {
+                    if(isCameraPermissionGranted){
+                        CameraView(controller, Modifier.fillMaxSize())
+                    }
                 }
+
             }
         },
         bottomBar = {
@@ -77,7 +90,12 @@ fun PhotoCaptureTest(){
                     .padding(32.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        controller.cameraSelector =
+                            if (controller.cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+                                CameraSelector.DEFAULT_FRONT_CAMERA
+                            } else CameraSelector.DEFAULT_BACK_CAMERA
+                    }) {
                         Icon(imageVector = Icons.Rounded.SwitchCamera, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = Color.White)
                     }
 
@@ -87,7 +105,9 @@ fun PhotoCaptureTest(){
                         Icon(imageVector = Icons.Rounded.Camera, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = Color.White)
                     }
 
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        showCapturedImage.value = !showCapturedImage.value
+                    }) {
                         Icon(imageVector = Icons.Rounded.Image, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = Color.White)
                     }
                 }
@@ -95,13 +115,15 @@ fun PhotoCaptureTest(){
         },
 
         floatingActionButton = {
-            bitmap.value?.let {
-                Image(
-                    bitmap = it.asImageBitmap(),
-                    contentDescription = null,
-                    modifier = Modifier.size(80.dp).border(4.dp, Color.Black),
-                    contentScale = androidx.compose.ui.layout.ContentScale.Crop
-                )
+            if(!showCapturedImage.value){
+                bitmap.value?.let {
+                    Image(
+                        bitmap = it.asImageBitmap(),
+                        contentDescription = null,
+                        modifier = Modifier.size(80.dp).border(4.dp, Color.Black),
+                        contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                    )
+                }
             }
         }
     )

@@ -11,8 +11,13 @@ import javax.inject.Inject
 @HiltViewModel
 class VoiceViewModel @Inject constructor(): ViewModel() {
     private val audioFile = File.createTempFile("recording", ".mp3")
+    private var recorder = MediaRecorder()
+    fun setRecorder(recorder: MediaRecorder){
+        this.recorder = recorder
+    }
 
-    fun startRecording(recorder: MediaRecorder) {
+    fun startRecording() {
+        audioFile.delete()
         // Initialize MediaRecorder
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
@@ -25,12 +30,13 @@ class VoiceViewModel @Inject constructor(): ViewModel() {
         Log.d("fun startRecording(recorder: MediaRecorder)", "Recording started")
     }
 
-    fun stopRecording(recorder: MediaRecorder, onFinished: (File) -> Unit) {
+    fun stopRecording(onFinished: (File) -> Unit) {
         // Stop recording and release resources
         recorder.stop()
         recorder.release()
         onFinished(this.audioFile)
         Log.d("fun stopRecording(recorder: MediaRecorder)", "Recording stopped")
+        recorder = MediaRecorder()
     }
 
     fun playRecording(audioFile: File) {

@@ -33,9 +33,19 @@ class PhotoViewModel @Inject constructor(): ViewModel() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     super.onCaptureSuccess(image)
 
-                    val bitmap = imageProxyToBitmap(image)
-                    bitmap?.let { onPhotoTaken(it) }
-                    image.close()
+                    val matrix = Matrix().apply {
+                        postRotate(image.imageInfo.rotationDegrees.toFloat())
+                    }
+                    val rotatedBitmap = Bitmap.createBitmap(
+                        imageProxyToBitmap(image),
+                        0,
+                        0,
+                        image.width,
+                        image.height,
+                        matrix,
+                        true
+                    )
+                    onPhotoTaken(rotatedBitmap)
                 }
 
                 override fun onError(exception: ImageCaptureException) {
