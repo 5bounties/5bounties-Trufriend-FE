@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Superhub"
+rootProject.name = "Trufriend"
 include(":app")
  

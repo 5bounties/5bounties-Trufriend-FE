@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.vbounties.superhub"
+    namespace = "com.vbounties.trufriend"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.vbounties.superhub"
+        applicationId = "com.vbounties.trufriend"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
