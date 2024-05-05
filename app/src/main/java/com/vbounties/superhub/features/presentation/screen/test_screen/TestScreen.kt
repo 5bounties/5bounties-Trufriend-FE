@@ -22,6 +22,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -36,6 +38,7 @@ import com.vbounties.superhub.features.presentation.screen.test_screen.voice_rec
 @Composable
 fun TestScreen(){
     val navController = rememberNavController()
+    val selected = remember { mutableStateOf(0) }
     Scaffold(
         topBar = {
                  Card(modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(Color.Black)) {
@@ -44,19 +47,28 @@ fun TestScreen(){
                          .padding(horizontal = 32.dp, vertical = 12.dp),
                          horizontalArrangement = Arrangement.SpaceBetween
                      ) {
-                         IconButton(onClick = { navController.navigate("capture_photo") }
+                         IconButton(onClick = {
+                             navController.navigate("capture_photo")
+                             selected.value = 0
+                         }
                          ) {
-                             Icon(imageVector = Icons.Rounded.Image, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = Color.White)
+                             Icon(imageVector = Icons.Rounded.Image, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = if(selected.value == 0) Color.Yellow else Color.White)
                          }
 
-                         IconButton(onClick = { navController.navigate("voice_record") }
+                         IconButton(onClick = {
+                             navController.navigate("voice_record")
+                             selected.value = 1
+                         }
                          ) {
-                             Icon(imageVector = Icons.Rounded.KeyboardVoice, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = Color.White)
+                             Icon(imageVector = Icons.Rounded.KeyboardVoice, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = if(selected.value == 1) Color.Yellow else Color.White)
                          }
 
-                         IconButton(onClick = { navController.navigate("video_record") }
+                         IconButton(onClick = {
+                             navController.navigate("video_record")
+                             selected.value = 2
+                         }
                          ) {
-                             Icon(imageVector = Icons.Rounded.Videocam, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = Color.White)
+                             Icon(imageVector = Icons.Rounded.Videocam, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = if(selected.value == 2) Color.Yellow else Color.White)
                          }
                      }
                  }
