@@ -37,6 +37,7 @@ class AuthRepositoryImpl @Inject constructor(
             } catch (e: Exception){
                 emit(Result.Loading(isLoading = false))
                 emit(Result.Error(e.message.toString()))
+                Log.d("UserEntity", e.message.toString())
             }
         }
     }
@@ -71,11 +72,13 @@ class AuthRepositoryImpl @Inject constructor(
                 } else {
                     emit(Result.Loading(isLoading = false))
                     emit(Result.Error(response.message))
+                    Log.d("Register", response.message)
                 }
 
             } catch (e: Exception){
                 emit(Result.Loading(isLoading = false))
                 emit(Result.Error(e.message.toString()))
+                Log.d("Register", e.message.toString())
             }
         }
     }
@@ -103,11 +106,13 @@ class AuthRepositoryImpl @Inject constructor(
                 } else {
                     emit(Result.Loading(isLoading = false))
                     emit(Result.Error(response.message))
+                    Log.d("Login", response.message)
                 }
 
             } catch (e: Exception){
                 emit(Result.Loading(isLoading = false))
                 emit(Result.Error(e.message.toString()))
+                Log.d("Login", e.message.toString())
             }
         }
     }
