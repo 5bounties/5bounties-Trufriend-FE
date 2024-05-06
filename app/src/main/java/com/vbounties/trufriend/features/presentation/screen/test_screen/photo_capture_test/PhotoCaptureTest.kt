@@ -2,12 +2,17 @@ package com.vbounties.trufriend.features.presentation.screen.test_screen.photo_c
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.view.CameraController
 import androidx.camera.view.LifecycleCameraController
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -40,6 +45,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.vbounties.trufriend.features.domain.model.LoginModel
+import com.vbounties.trufriend.features.domain.model.RegisterModel
+import com.vbounties.trufriend.features.presentation.screen.login_screen.LoginViewModel
+import com.vbounties.trufriend.features.utils.uriToBitmap
+import java.io.File
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -47,6 +57,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Preview
 fun PhotoCaptureTest(){
     val viewModel = hiltViewModel<PhotoViewModel>()
+    val viewModel2 = hiltViewModel<LoginViewModel>()
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
     val showCapturedImage = remember { mutableStateOf(false) }
 
@@ -59,6 +70,16 @@ fun PhotoCaptureTest(){
             setEnabledUseCases(CameraController.IMAGE_CAPTURE)
         }
     }
+
+    val selectedImageUri = remember { mutableStateOf<Uri?>(null) }
+
+    val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri ->
+            selectedImageUri.value = uri
+            bitmap.value = selectedImageUri.value?.let { uriToBitmap(context, it) }
+        }
+    )
 
     Scaffold(
         content = {
@@ -101,6 +122,26 @@ fun PhotoCaptureTest(){
 
                     IconButton(onClick = {
                         showCapturedImage.value = !showCapturedImage.value
+//                        bitmap.value?.let {
+//                            RegisterModel(
+//                                name     = "test login",
+//                                username = "testlogin",
+//                                password = "testpassword",
+//                                email    = "testlogin@test.com",
+//                                avatar   = it
+//                            )
+//                        }?.let { viewModel2.register(context = context, request = it) }
+//                        viewModel2.login(LoginModel(email = "nugrahabilly@gmail.com", password = "nugrahabilly"))
+
+                        bitmap.value?.let {
+                            RegisterModel(
+                                name     = "test login",
+                                username = "testlogin",
+                                password = "testpassword",
+                                email    = "testlogin@test.com",
+                                avatar   = it
+                            )
+                        }?.let { viewModel2.register(context, it) }
                     }) {
                         Icon(imageVector = Icons.Rounded.Image, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = Color.White)
                     }
@@ -114,7 +155,11 @@ fun PhotoCaptureTest(){
                     Image(
                         bitmap = it.asImageBitmap(),
                         contentDescription = null,
-                        modifier = Modifier.size(80.dp).border(4.dp, Color.Black),
+                        modifier = Modifier.size(80.dp).border(4.dp, Color.Black).clickable {
+                            singlePhotoPickerLauncher.launch(
+                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                            )
+                        },
                         contentScale = androidx.compose.ui.layout.ContentScale.Crop
                     )
                 }

@@ -1,5 +1,6 @@
 package com.vbounties.trufriend.features.domain.repository
 
+import android.content.Context
 import com.vbounties.trufriend.features.data.local.UserEntity
 import com.vbounties.trufriend.features.data.remote.response.LoginResponse
 import com.vbounties.trufriend.features.data.remote.response.RegisterResponse
@@ -10,6 +11,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
     suspend fun GetUserEntity(): Flow<Result<UserEntity>>
-    suspend fun PostRegister(request: RegisterModel): Flow<Result<RegisterResponse>>
+    suspend fun PostRegister(context: Context, request: RegisterModel): Flow<Result<RegisterResponse>>
     suspend fun PostLogin(request: LoginModel):  Flow<Result<LoginResponse>>
 }

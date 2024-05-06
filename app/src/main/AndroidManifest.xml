@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
-        android:name=".SuperhubApp"
+        android:name=".TrufriendApp"
         tools:replace="android:name"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"

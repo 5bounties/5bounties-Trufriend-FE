@@ -1,5 +1,6 @@
 package com.vbounties.trufriend.features.presentation.screen.login_screen
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,12 +23,12 @@ class LoginViewModel @Inject constructor(
     private val _loginstate = MutableStateFlow(LoginState())
     val loginstate = _loginstate.asStateFlow()
 
-    fun register(request: RegisterModel) {
+    fun register(context: Context, request: RegisterModel) {
         viewModelScope.launch {
             _loginstate.update {
                 it.copy(isLoading = true)
             }
-            repository.PostRegister(request).collectLatest {
+            repository.PostRegister(context, request).collectLatest {
                 when (it) {
                     is Result.Success -> {
                         _loginstate.update {

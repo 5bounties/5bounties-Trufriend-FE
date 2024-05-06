@@ -1,8 +1,11 @@
 package com.vbounties.trufriend.features.presentation.screen.test_screen
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,9 +49,8 @@ fun TestScreen(){
     val navController = rememberNavController()
     val selected = remember { mutableStateOf(0) }
     val viewModel = hiltViewModel<LoginViewModel>()
-    val notif = remember { mutableStateOf("") }
 
-    viewModel.login(LoginModel("test", "test"))
+
 
     Scaffold(
         topBar = {

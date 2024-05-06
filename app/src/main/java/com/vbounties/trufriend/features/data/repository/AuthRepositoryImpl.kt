@@ -1,4 +1,5 @@
 package com.vbounties.trufriend.features.data.repository
+import android.content.Context
 import android.util.Log
 import com.vbounties.trufriend.features.data.local.UserDatabase
 import com.vbounties.trufriend.features.data.local.UserEntity
@@ -8,7 +9,10 @@ import com.vbounties.trufriend.features.data.remote.response.RegisterResponse
 import com.vbounties.trufriend.features.domain.model.LoginModel
 import com.vbounties.trufriend.features.domain.model.RegisterModel
 import com.vbounties.trufriend.features.domain.repository.AuthRepository
+import com.vbounties.trufriend.features.utils.BitmapToFile
 import com.vbounties.trufriend.features.utils.Result
+import com.vbounties.trufriend.features.utils.buildImageBodyPart
+import com.vbounties.trufriend.features.utils.uriToBitmap
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MediaType
@@ -42,17 +46,23 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun PostRegister(request: RegisterModel): Flow<Result<RegisterResponse>> {
+    override suspend fun PostRegister(context: Context, request: RegisterModel): Flow<Result<RegisterResponse>> {
         return flow {
             emit(Result.Loading(isLoading = true))
+
+            // val bitmap = uriToBitmap(context, request.avatar)
+            // MultipartBody.Part.createFormData("image", request.avatar.name, request.avatar.asRequestBody())
+
+            val multipart = buildImageBodyPart(context, request.name, request.avatar)
+            Log.d("Register", multipart.toString())
+
             try {
-                val requestFile = request.avatar.asRequestBody("image/*".toMediaTypeOrNull())
                 val response = api.postRegister(
                     name = request.name.toRequestBody(),
                     username = request.username.toRequestBody(),
                     email = request.email.toRequestBody(),
                     password = request.password.toRequestBody(),
-                    avatar = MultipartBody.Part.createFormData("file", request.avatar.name, requestFile)
+                    avatar = multipart
                 )
 
                 Log.d("Register", response.toString())
@@ -73,12 +83,13 @@ class AuthRepositoryImpl @Inject constructor(
                     emit(Result.Loading(isLoading = false))
                     emit(Result.Error(response.message))
                     Log.d("Register", response.message)
+                    Log.d("Register", response.toString())
                 }
 
             } catch (e: Exception){
                 emit(Result.Loading(isLoading = false))
                 emit(Result.Error(e.message.toString()))
-                Log.d("Register", e.message.toString())
+                Log.d("Register", e.toString())
             }
         }
     }
