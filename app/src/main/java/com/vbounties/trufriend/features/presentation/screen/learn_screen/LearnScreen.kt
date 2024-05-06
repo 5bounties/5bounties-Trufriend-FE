@@ -66,6 +66,9 @@ fun LearnScreen(){
                     .height(100.dp)){
                 }
             }
+            item { 
+                Spacer(modifier = Modifier.height(120.dp))
+            }
         }
     }
 }

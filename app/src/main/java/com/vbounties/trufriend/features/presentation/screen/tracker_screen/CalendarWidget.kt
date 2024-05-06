@@ -3,8 +3,10 @@ package com.vbounties.trufriend.features.presentation.screen.tracker_screen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -19,7 +21,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 @Preview
 fun CalendarWidget(){
-    LazyVerticalGrid(columns = GridCells.Fixed(3), modifier = Modifier.size(260.dp)) {
+    LazyVerticalGrid(columns = GridCells.Fixed(3), modifier = Modifier.width(260.dp).height(300.dp)) {
         items(7){
             DayWidget()
         }

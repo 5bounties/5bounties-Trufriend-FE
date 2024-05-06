@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.vbounties.trufriend.features.presentation.design_system.SuperhubTheme
-import com.vbounties.trufriend.features.presentation.screen.test_screen.TestScreen
+import com.vbounties.trufriend.features.presentation.navigation.navhost.ParentNav
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SuperhubTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { //innerPadding ->
-                    TestScreen()
+                    ParentNav()
                 }
             }
         }

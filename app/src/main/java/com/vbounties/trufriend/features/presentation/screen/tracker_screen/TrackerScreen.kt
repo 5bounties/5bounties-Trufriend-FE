@@ -60,7 +60,7 @@ fun TrackerScreen(){
                     Spacer(modifier = Modifier.height(32.dp))
                     LazyRow(modifier = Modifier
                         .fillMaxWidth()
-                        .height(260.dp)) {
+                        .height(300.dp)) {
                         items(4){
                             Spacer(modifier = Modifier.width(50.dp))
                             CalendarWidget()
