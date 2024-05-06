@@ -21,5 +21,8 @@ data class UserEntity(
     val email: String,
 
     @ColumnInfo(name = "avatar_url")
-    val avatarUrl: String
+    val avatarUrl: String,
+
+    @ColumnInfo(name = "token")
+    val token: String
 )

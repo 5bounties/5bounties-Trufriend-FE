@@ -133,15 +133,16 @@ fun PhotoCaptureTest(){
 //                        }?.let { viewModel2.register(context = context, request = it) }
 //                        viewModel2.login(LoginModel(email = "nugrahabilly@gmail.com", password = "nugrahabilly"))
 
-                        bitmap.value?.let {
-                            RegisterModel(
-                                name     = "test login",
-                                username = "testlogin",
-                                password = "testpassword",
-                                email    = "testlogin@test.com",
-                                avatar   = it
-                            )
-                        }?.let { viewModel2.register(context, it) }
+//                        bitmap.value?.let {
+//                            RegisterModel(
+//                                name     = "test login",
+//                                username = "testlogin",
+//                                password = "testpassword",
+//                                email    = "testlogin@test.com",
+//                                avatar   = it
+//                            )
+//                        }?.let { viewModel2.register(context, it) }
+                        viewModel2.login(LoginModel(email = "testlogin@test.com", password = "testpassword"))
                     }) {
                         Icon(imageVector = Icons.Rounded.Image, contentDescription = "Camera", modifier = Modifier.size(80.dp), tint = Color.White)
                     }

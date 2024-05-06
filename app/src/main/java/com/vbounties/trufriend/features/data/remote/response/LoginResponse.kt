@@ -11,5 +11,6 @@ data class UserDataDetails2(
     val name: String,
     val email: String,
     val username: String,
-    val avatarUrl: String
+    val avatarUrl: String,
+    val token: String
 )

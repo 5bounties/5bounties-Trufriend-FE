@@ -72,14 +72,6 @@ class AuthRepositoryImpl @Inject constructor(
                     emit(Result.Loading(isLoading = false))
                     emit(Result.Success(response))
 
-                    userDatabase.userDao().upserUser(user = UserEntity(
-                        id = response.data.id,
-                        name = response.data.name,
-                        username = response.data.username,
-                        email = response.data.email,
-                        avatarUrl = response.data.avatarUrl
-                    ))
-
                 } else {
                     emit(Result.Loading(isLoading = false))
                     emit(Result.Error(response.message))
@@ -112,7 +104,8 @@ class AuthRepositoryImpl @Inject constructor(
                         name = response.data.name,
                         username = response.data.username,
                         email = response.data.email,
-                        avatarUrl = response.data.avatarUrl
+                        avatarUrl = response.data.avatarUrl,
+                        token = response.data.token
                     ))
 
                 } else {

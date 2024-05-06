@@ -49,8 +49,9 @@ fun TestScreen(){
     val navController = rememberNavController()
     val selected = remember { mutableStateOf(0) }
     val viewModel = hiltViewModel<LoginViewModel>()
+    val viewModel2 = hiltViewModel<TestViewModel>()
 
-
+    viewModel2.getAllUsers()
 
     Scaffold(
         topBar = {
@@ -87,6 +88,7 @@ fun TestScreen(){
                         }
                     }
                     Text(text = viewModel.loginstate.collectAsState().value.toString())
+                    Text(text = viewModel2.userstate.collectAsState().value.toString())
                 }
 
         },
