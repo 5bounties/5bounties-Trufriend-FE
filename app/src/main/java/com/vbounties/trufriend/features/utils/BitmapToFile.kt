@@ -35,3 +35,19 @@ fun BitmapToFile(context: Context, fileName: String, bitmap: Bitmap): File {
     }
     return file
 }
+
+fun bitmapToFile2(context: Context, bitmap: Bitmap): File? {
+    // Create a file to save the bitmap
+    val file = File(context.cacheDir, "avatar.jpg")
+    try {
+        // Compress the bitmap to JPEG format and write it to the file
+        val stream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        stream.flush()
+        stream.close()
+        return file
+    } catch (e: IOException) {
+        e.printStackTrace()
+        return null
+    }
+}

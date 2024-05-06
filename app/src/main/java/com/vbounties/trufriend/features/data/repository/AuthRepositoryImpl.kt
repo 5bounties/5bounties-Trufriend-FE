@@ -11,6 +11,7 @@ import com.vbounties.trufriend.features.domain.model.RegisterModel
 import com.vbounties.trufriend.features.domain.repository.AuthRepository
 import com.vbounties.trufriend.features.utils.BitmapToFile
 import com.vbounties.trufriend.features.utils.Result
+import com.vbounties.trufriend.features.utils.bitmapToFile2
 import com.vbounties.trufriend.features.utils.buildImageBodyPart
 import com.vbounties.trufriend.features.utils.uriToBitmap
 import kotlinx.coroutines.flow.Flow
@@ -50,11 +51,11 @@ class AuthRepositoryImpl @Inject constructor(
         return flow {
             emit(Result.Loading(isLoading = true))
 
-            // val bitmap = uriToBitmap(context, request.avatar)
-            // MultipartBody.Part.createFormData("image", request.avatar.name, request.avatar.asRequestBody())
+            val file = bitmapToFile2(context, request.avatar)
+            val requestFile = file?.let { RequestBody.create("image/jpeg".toMediaTypeOrNull(), it) }
+            val avatarPart = requestFile?.let { MultipartBody.Part.createFormData("avatar", file.name, it) } ?: return@flow
 
-            val multipart = buildImageBodyPart(context, request.name, request.avatar)
-            Log.d("Register", multipart.toString())
+            Log.d("Register", avatarPart.toString())
 
             try {
                 val response = api.postRegister(
@@ -62,7 +63,7 @@ class AuthRepositoryImpl @Inject constructor(
                     username = request.username.toRequestBody(),
                     email = request.email.toRequestBody(),
                     password = request.password.toRequestBody(),
-                    avatar = multipart
+                    avatar = avatarPart
                 )
 
                 Log.d("Register", response.toString())
