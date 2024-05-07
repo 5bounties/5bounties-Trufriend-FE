@@ -27,18 +27,17 @@ class UserRepositoryImpl @Inject constructor(
         return flow {
             emit(Result.Loading(isLoading = true))
             try{
-//                val token = GetToken()
-//                Log.d("Token", "token: $token")
-
                 val response = api.getAllUsers(Constant.SUPERADMIN)
                 Log.d("Response", "response: $response")
 
                 if(response.status == 200){
                     emit(Result.Success(response))
                     emit(Result.Loading(isLoading = false))
+                    return@flow
                 } else {
                     emit(Result.Error(response.message))
                     emit(Result.Loading(isLoading = false))
+                    return@flow
                 }
 
             } catch (e: Exception){
@@ -53,24 +52,24 @@ class UserRepositoryImpl @Inject constructor(
         return flow {
             emit(Result.Loading(isLoading = true))
             try {
-//                val token = GetToken()
-//                Log.d("Token", "token: $token")
-
                 val response = api.getUserById(Constant.SUPERADMIN, id)
                 Log.d("Response", "response: $response")
 
                 if(response.status == 200){
                     emit(Result.Success(response))
                     emit(Result.Loading(isLoading = false))
+                    return@flow
                 } else {
                     emit(Result.Error(response.message))
                     emit(Result.Loading(isLoading = false))
+                    return@flow
                 }
 
             } catch (e: Exception){
                 emit(Result.Error(e.message.toString()))
                 emit(Result.Loading(isLoading = false))
                 Log.d("Error", e.message.toString())
+                return@flow
             }
         }
     }

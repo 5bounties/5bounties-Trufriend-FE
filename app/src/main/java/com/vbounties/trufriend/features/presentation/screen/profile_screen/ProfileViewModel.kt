@@ -1,9 +1,13 @@
 package com.vbounties.trufriend.features.presentation.screen.profile_screen
 
+import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vbounties.trufriend.features.data.local.UserEntity
 import com.vbounties.trufriend.features.domain.repository.AuthRepository
 import com.vbounties.trufriend.features.domain.repository.UserRepository
+import com.vbounties.trufriend.features.presentation.navigation.navhost.LoginNav
 import com.vbounties.trufriend.features.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,39 +25,42 @@ class ProfileViewModel @Inject constructor(
     private val _userstate = MutableStateFlow(UserState())
     val userstate = _userstate.asStateFlow()
 
-    init {
-        getUser()
-    }
+//    init {
+//        getUser()
+//    }
 
-    fun getUser() {
+    fun getUser(onFinished: (UserState) -> Unit) {
         viewModelScope.launch {
-            authRepository.GetUserEntity().collectLatest { result ->
+            authRepository.GetUserEntity().collect { result ->
                 when(result) {
                     is Result.Success -> {
-                        result.data?.let { userEntity ->
-                            _userstate.update { currentState ->
-                                currentState.copy(
-                                    message = "Fetch Berhasil",
-                                    isLoading = false,
-                                    data = userEntity
-                                )
-                            }
+                        Log.d("ProfileViewModel", "getUser: ${result.data}")
+                        _userstate.update { currentState ->
+                            currentState.copy(
+                                message = "Fetch Berhasil",
+                                isLoading = false,
+                                data = result.data ?: UserEntity("", "", "", "", "", "")
+                            )
                         }
+                        Log.d("ProfileViewModel", "userState: ${userstate.value}")
+                        onFinished(userstate.value)
                     }
                     is Result.Error -> {
-                        _userstate.update { currentState ->
-                            currentState.copy(
-                                message = result.message ?: "Fetch Gagal", // Use result.message or default message
-                                isLoading = false
-                            )
-                        }
+//                        Log.d("ProfileViewModel", "getUser: ${result.data}")
+//                        _userstate.update { currentState ->
+//                            currentState.copy(
+//                                message = result.message ?: "Fetch Gagal",
+//                                isLoading = false
+//                            )
+//                        }
                     }
                     is Result.Loading -> {
-                        _userstate.update { currentState ->
-                            currentState.copy(
-                                isLoading = result.isLoading
-                            )
-                        }
+//                        Log.d("ProfileViewModel", "getUser: ${result.data}")
+//                        _userstate.update { currentState ->
+//                            currentState.copy(
+//                                isLoading = result.isLoading
+//                            )
+//                        }
                     }
                 }
             }

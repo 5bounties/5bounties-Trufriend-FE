@@ -32,16 +32,17 @@ class AuthRepositoryImpl @Inject constructor(
         return flow {
             emit(Result.Loading(isLoading = true))
             try {
-                val result = userDatabase.userDao().getUser()
+                val result = userDatabase.userDao().getUser()[userDatabase.userDao().getUser().size - 1]
                 Log.d("UserEntity", result.toString())
-
-                emit(Result.Success(result[userDatabase.userDao().getUser().size - 1]))
+                emit(Result.Success(data = result))
                 emit(Result.Loading(isLoading = false))
+                return@flow
 
             } catch (e: Exception){
                 emit(Result.Loading(isLoading = false))
                 emit(Result.Error(e.message.toString()))
                 Log.d("UserEntity", e.message.toString())
+                return@flow
             }
         }
     }
@@ -68,20 +69,22 @@ class AuthRepositoryImpl @Inject constructor(
                 Log.d("Register", response.toString())
 
                 if(response.status == 201){
-                    emit(Result.Loading(isLoading = false))
                     emit(Result.Success(response))
-
+                    emit(Result.Loading(isLoading = false))
+                    return@flow
                 } else {
                     emit(Result.Loading(isLoading = false))
                     emit(Result.Error(response.message))
                     Log.d("Register", response.message)
                     Log.d("Register", response.toString())
+                    return@flow
                 }
 
             } catch (e: Exception){
                 emit(Result.Loading(isLoading = false))
                 emit(Result.Error(e.message.toString()))
                 Log.d("Register", e.toString())
+                return@flow
             }
         }
     }
@@ -105,17 +108,20 @@ class AuthRepositoryImpl @Inject constructor(
                         token = response.data.token
                     ))
                     emit(Result.Loading(isLoading = false))
+                    return@flow
 
                 } else {
                     emit(Result.Loading(isLoading = false))
                     emit(Result.Error(response.message))
                     Log.d("Login", response.message)
+                    return@flow
                 }
 
             } catch (e: Exception){
                 emit(Result.Loading(isLoading = false))
                 emit(Result.Error(e.message.toString()))
                 Log.d("Login", e.message.toString())
+                return@flow
             }
         }
     }

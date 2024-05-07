@@ -3,6 +3,7 @@ package com.vbounties.trufriend.features.presentation.screen.profile_screen
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -42,6 +43,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -75,10 +77,16 @@ fun ProfileScreen(
     loginController: NavController = rememberNavController()
 ){
     val viewModel = hiltViewModel<ProfileViewModel>()
-    val user = viewModel.userstate.collectAsState()
-    val name = remember { mutableStateOf(user.value.data.name) }
-    val username = remember { mutableStateOf(user.value.data.username) }
-    val email = remember { mutableStateOf(user.value.data.email) }
+    val userState = remember { mutableStateOf(UserState()) }
+
+    viewModel.getUser {
+        userState.value = it
+        Log.d("ProfileScreen", it.data.toString())
+    }
+
+    val name = remember { mutableStateOf(userState.value.data.name) }
+    val username = remember { mutableStateOf(userState.value.data.username) }
+    val email = remember { mutableStateOf(userState.value.data.email) }
     val context = LocalContext.current
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
     val selectedImageUri = remember { mutableStateOf<Uri?>(null) }
@@ -92,6 +100,7 @@ fun ProfileScreen(
     )
 
     Scaffold(
+        
         topBar = {
             Card(
                 modifier = Modifier
@@ -155,13 +164,7 @@ fun ProfileScreen(
                             .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                             Icon(imageVector = Icons.Rounded.Person, contentDescription = "email", tint = Color.Gray)
                             Spacer(modifier = Modifier.width(8.dp))
-                            BasicTextField(value = name.value, onValueChange = {
-
-                            }, modifier = Modifier
-                                .fillMaxSize()
-                                .padding(vertical = 12.dp),
-                                textStyle = TextStyle(color = Color.Gray)
-                            )
+                            Text(text = userState.value.data.name, modifier = Modifier.fillMaxWidth())
                         }
                     }
 
@@ -179,13 +182,7 @@ fun ProfileScreen(
                             .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                             Icon(imageVector = Icons.Rounded.PersonOutline, contentDescription = "email", tint = Color.Gray)
                             Spacer(modifier = Modifier.width(8.dp))
-                            BasicTextField(value = username.value, onValueChange = {
-
-                            }, modifier = Modifier
-                                .fillMaxSize()
-                                .padding(vertical = 12.dp),
-                                textStyle = TextStyle(color = Color.Gray)
-                            )
+                            Text(text = userState.value.data.username, modifier = Modifier.fillMaxWidth())
                         }
                     }
 
@@ -203,13 +200,7 @@ fun ProfileScreen(
                             .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                             Icon(imageVector = Icons.Rounded.Email, contentDescription = "email", tint = Color.Gray)
                             Spacer(modifier = Modifier.width(8.dp))
-                            BasicTextField(value = email.value, onValueChange = {
-
-                            }, modifier = Modifier
-                                .fillMaxSize()
-                                .padding(vertical = 12.dp),
-                                textStyle = TextStyle(color = Color.Gray)
-                            )
+                            Text(text = userState.value.data.email, modifier = Modifier.fillMaxWidth())
                         }
                     }
 
@@ -223,7 +214,7 @@ fun ProfileScreen(
                             .fillMaxSize()
                             .padding(horizontal = 16.dp)
                             .clickable {
-                                if(
+                                if (
                                     !name.value.isEmpty() &&
                                     !email.value.isEmpty() &&
                                     !username.value.isEmpty() &&
@@ -231,7 +222,13 @@ fun ProfileScreen(
                                 ) {
 
                                 } else {
-                                    Toast.makeText(context, "Isikan form dengan benar", Toast.LENGTH_SHORT).show()
+                                    Toast
+                                        .makeText(
+                                            context,
+                                            "Isikan form dengan benar",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                        .show()
                                 }
                             }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                             Text(text = "Log-out", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
