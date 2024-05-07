@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
@@ -26,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.features.presentation.navigation.BottomNavigation
 import com.vbounties.trufriend.features.presentation.screen.home_screen.HomeScreen
 import com.vbounties.trufriend.features.presentation.screen.learn_screen.LearnScreen
+import com.vbounties.trufriend.features.presentation.screen.meditation_screen.MeditationScreen
 import com.vbounties.trufriend.features.presentation.screen.search_screen.SearchScreen
 import com.vbounties.trufriend.features.presentation.screen.tracker_screen.TrackerScreen
 
@@ -48,7 +50,7 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                     )
                 }
                 ){
-                    HomeScreen()
+                    HomeScreen(parentController)
                 }
 
                 composable(BottomNavigation.Search.route, enterTransition = {
@@ -89,6 +91,19 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                 ){
                     TrackerScreen()
                 }
+
+                composable(BottomNavigation.Meditation.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    MeditationScreen()
+                }
             }
         },
         bottomBar = {
@@ -98,11 +113,12 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                 elevation = CardDefaults.cardElevation(32.dp),
                 colors = CardDefaults.cardColors(Color.White)
             ) {
-                Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){
+                Row(modifier = Modifier.fillMaxSize().padding(16.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically){
                     Text(text = "Home", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Home.route) })
                     Text(text = "Search", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Search.route) })
                     Text(text = "Learn", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Learn.route) })
                     Text(text = "Tracker", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Tracker.route) })
+                    Text(text = "Meditation", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Meditation.route) })
                 }
             }
         }

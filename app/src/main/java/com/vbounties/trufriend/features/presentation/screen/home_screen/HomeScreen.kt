@@ -2,6 +2,7 @@ package com.vbounties.trufriend.features.presentation.screen.home_screen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,10 +31,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentNavigation
 
 @Composable
 @Preview
-fun HomeScreen(){
+fun HomeScreen(
+    parentController: NavController = rememberNavController()
+){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)){
@@ -44,7 +50,9 @@ fun HomeScreen(){
             item {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Card(modifier = Modifier.size(50.dp)){}
-                    Card(modifier = Modifier.size(50.dp)){}
+                    Card(modifier = Modifier.size(50.dp).clickable {
+                        parentController.navigate(ParentNavigation.Profile.route)
+                    }){}
                 }
             }
             item { Spacer(modifier = Modifier.padding(8.dp)) }
@@ -115,7 +123,9 @@ fun HomeScreen(){
             item{
                 LazyRow(modifier = Modifier.fillMaxWidth()) {
                     items(3){
-                        Card(modifier = Modifier.height(200.dp).width(180.dp)) {
+                        Card(modifier = Modifier
+                            .height(200.dp)
+                            .width(180.dp)) {
 
                         }
                         Spacer(modifier = Modifier.padding(8.dp))

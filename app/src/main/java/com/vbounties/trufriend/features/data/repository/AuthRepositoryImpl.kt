@@ -33,11 +33,10 @@ class AuthRepositoryImpl @Inject constructor(
             emit(Result.Loading(isLoading = true))
             try {
                 val result = userDatabase.userDao().getUser()
-                emit(Result.Loading(isLoading = false))
-
                 Log.d("UserEntity", result.toString())
 
-                emit(Result.Success(result[0]))
+                emit(Result.Success(result[userDatabase.userDao().getUser().size - 1]))
+                emit(Result.Loading(isLoading = false))
 
             } catch (e: Exception){
                 emit(Result.Loading(isLoading = false))
@@ -96,9 +95,7 @@ class AuthRepositoryImpl @Inject constructor(
                 Log.d("Login", response.toString())
 
                 if(response.status == 200){
-                    emit(Result.Loading(isLoading = false))
                     emit(Result.Success(response))
-
                     userDatabase.userDao().upserUser(user = UserEntity(
                         id = response.data.id,
                         name = response.data.name,
@@ -107,6 +104,7 @@ class AuthRepositoryImpl @Inject constructor(
                         avatarUrl = response.data.avatarUrl,
                         token = response.data.token
                     ))
+                    emit(Result.Loading(isLoading = false))
 
                 } else {
                     emit(Result.Loading(isLoading = false))

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vbounties.trufriend.features.domain.repository.UserRepository
+import com.vbounties.trufriend.features.presentation.screen.profile_screen.UserState
 import com.vbounties.trufriend.features.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +24,7 @@ class TestViewModel @Inject constructor(
     init {
         getAllUsers()
     }
+
     fun getAllUsers(){
         viewModelScope.launch {
            userRepository.GetAllUser().collectLatest {

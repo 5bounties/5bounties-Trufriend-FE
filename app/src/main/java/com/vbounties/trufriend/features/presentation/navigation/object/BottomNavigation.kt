@@ -6,5 +6,7 @@ sealed class BottomNavigation(val route: String) {
     object Home : BottomNavigation("home")
     object Search : BottomNavigation("search")
     object Learn: BottomNavigation("learn")
+    object LearnDetail : BottomNavigation("learnDetail")
     object Tracker : BottomNavigation("tracker")
+    object Meditation: BottomNavigation("meditation")
 }
