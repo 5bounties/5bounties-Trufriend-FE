@@ -15,7 +15,10 @@ import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentN
 @Composable
 fun ParentNav(){
     val parentController = rememberNavController()
-    NavHost(navController = parentController, startDestination = ParentNavigation.BottomNav.route){
+    NavHost(navController = parentController, startDestination = ParentNavigation.LoginNav.route){
+        composable(route = ParentNavigation.LoginNav.route){
+            LoginNav(parentController)
+        }
         composable(route = ParentNavigation.BottomNav.route){
             BottomNav(parentController)
         }
