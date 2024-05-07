@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.features.presentation.navigation.`object`.LoginNavigation
 import com.vbounties.trufriend.features.presentation.screen.login_screen.LoginScreen
+import com.vbounties.trufriend.features.presentation.screen.login_screen.SignInScreen
 import com.vbounties.trufriend.features.presentation.screen.splash_screen.SplashScreen0
 import com.vbounties.trufriend.features.presentation.screen.splash_screen.SplashScreen1
 import com.vbounties.trufriend.features.presentation.screen.splash_screen.SplashScreen2
@@ -85,6 +86,18 @@ fun LoginNav(
             }
             ){
                 LoginScreen(loginController = loginController, parentController = parentController)
+            }
+            composable(LoginNavigation.SignIn.route, enterTransition = {
+                return@composable slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Left, tween(700)
+                )
+            }, popExitTransition = {
+                return@composable slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Right, tween(700)
+                )
+            }
+            ){
+                SignInScreen(loginController = loginController, parentController = parentController)
             }
         }
     }

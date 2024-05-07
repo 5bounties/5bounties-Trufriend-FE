@@ -47,6 +47,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.features.domain.model.LoginModel
 import com.vbounties.trufriend.features.presentation.design_system.TrufriendPurple
+import com.vbounties.trufriend.features.presentation.navigation.`object`.LoginNavigation
 import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentNavigation
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -171,7 +172,9 @@ fun LoginScreen(
             Row(modifier = Modifier
                 .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 Text(text = "Belum punya akun?", color = Color.Gray, fontSize = 14.sp)
-                Text(text = " Sign up", color = TrufriendPurple, fontSize = 14.sp)
+                Text(text = " Sign up", color = TrufriendPurple, fontSize = 14.sp, modifier = Modifier.clickable {
+                    loginController.navigate(LoginNavigation.SignIn.route)
+                })
             }
 
         }
