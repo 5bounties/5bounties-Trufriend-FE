@@ -138,7 +138,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(32.dp))
             Card(modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp),
+                .height(48.dp),
                 colors = CardDefaults.cardColors(Color(0xFFC36528))
             ) {
                 Row(modifier = Modifier
@@ -159,7 +159,7 @@ fun LoginScreen(
                         email.value = "Enter your email"
                         reset.value = false
                     }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-                    Text(text = "Sign-In", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+                    Text(text = "Masuk", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -172,7 +172,7 @@ fun LoginScreen(
             Row(modifier = Modifier
                 .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 Text(text = "Belum punya akun?", color = Color.Gray, fontSize = 14.sp)
-                Text(text = " Sign up", color = TrufriendPurple, fontSize = 14.sp, modifier = Modifier.clickable {
+                Text(text = " Daftar", color = TrufriendPurple, fontSize = 14.sp, modifier = Modifier.clickable {
                     loginController.navigate(LoginNavigation.SignIn.route)
                 })
             }

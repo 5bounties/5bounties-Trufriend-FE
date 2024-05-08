@@ -67,7 +67,7 @@ fun SplashScreen2(
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(text = "Optimalkan potensi anda dengan Academate.", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
+                    Text(text = "Optimalkan potensi anda dengan TruFriend.", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Jelajahi beasiswa, bootcamp, lomba, dan webinar yang sesuai dengan minat anda", fontWeight = FontWeight.Medium)
                 }

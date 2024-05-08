@@ -24,7 +24,10 @@ fun ParentNav(){
             BottomNav(parentController)
         }
         composable(route = ParentNavigation.Profile.route){
-            ProfileScreen()
+            ProfileScreen(parentController)
+        }
+        composable(route = ParentNavigation.Settings.route){
+            ProfileScreen(parentController)
         }
     }
 }

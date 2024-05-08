@@ -100,7 +100,6 @@ fun ProfileScreen(
     )
 
     Scaffold(
-        
         topBar = {
             Card(
                 modifier = Modifier
@@ -117,7 +116,7 @@ fun ProfileScreen(
                     horizontalArrangement = Arrangement.Start
                 ) {
                     Icon(imageVector = Icons.Rounded.ArrowBackIosNew, contentDescription = "back")
-                    Text(text = "Meditation", modifier = Modifier.padding(start = 16.dp), fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                    Text(text = "Profile", modifier = Modifier.padding(start = 16.dp), fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
                 }
             }
         },

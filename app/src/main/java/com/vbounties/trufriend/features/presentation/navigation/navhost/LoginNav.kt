@@ -2,10 +2,12 @@ package com.vbounties.trufriend.features.presentation.navigation.navhost
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -18,6 +20,7 @@ import com.vbounties.trufriend.features.presentation.screen.splash_screen.Splash
 import com.vbounties.trufriend.features.presentation.screen.splash_screen.SplashScreen1
 import com.vbounties.trufriend.features.presentation.screen.splash_screen.SplashScreen2
 import com.vbounties.trufriend.features.presentation.screen.splash_screen.SplashScreen3
+import com.vbounties.trufriend.features.presentation.screen.splash_screen.SplashScreen4
 
 @Composable
 @Preview
@@ -25,7 +28,7 @@ fun LoginNav(
     parentController: NavController = rememberNavController()
 ){
     val loginController = rememberNavController()
-    Box(modifier = Modifier.fillMaxSize()){
+    Box(modifier = Modifier.fillMaxSize().background(Color(0xFFDFC9BD))){
         NavHost(navController = loginController, startDestination = LoginNavigation.Splash0.route){
             composable(LoginNavigation.Splash0.route, enterTransition = {
                 return@composable slideIntoContainer(
@@ -75,6 +78,20 @@ fun LoginNav(
             ){
                 SplashScreen3(loginController)
             }
+
+            composable(LoginNavigation.Splash4.route, enterTransition = {
+                return@composable slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Left, tween(700)
+                )
+            }, popExitTransition = {
+                return@composable slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Right, tween(700)
+                )
+            }
+            ){
+                SplashScreen4(loginController, parentController)
+            }
+
             composable(LoginNavigation.Login.route, enterTransition = {
                 return@composable slideIntoContainer(
                     AnimatedContentTransitionScope.SlideDirection.Left, tween(700)

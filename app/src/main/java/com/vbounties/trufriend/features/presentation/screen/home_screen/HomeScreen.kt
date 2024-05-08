@@ -23,6 +23,9 @@ import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,15 +34,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentNavigation
+import com.vbounties.trufriend.features.presentation.screen.profile_screen.UserState
 
 @Composable
 @Preview
 fun HomeScreen(
     parentController: NavController = rememberNavController()
 ){
+    val viewModel = hiltViewModel<HomeViewModel>()
+    val user = remember { mutableStateOf(UserState()) }
+    val emotion = remember { mutableStateOf(EmotionState()) }
+    viewModel.getUser {
+        user.value = it
+        viewModel.getEmotionById(user.value.data.id){
+            emotion.value = it
+        }
+    }
+
+
+
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)){
@@ -50,14 +67,16 @@ fun HomeScreen(
             item {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Card(modifier = Modifier.size(50.dp)){}
-                    Card(modifier = Modifier.size(50.dp).clickable {
-                        parentController.navigate(ParentNavigation.Profile.route)
-                    }){}
+                    Card(modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            parentController.navigate(ParentNavigation.Profile.route)
+                        }){}
                 }
             }
             item { Spacer(modifier = Modifier.padding(8.dp)) }
             item {
-                Text(text = "Hello, User", color = Color.Black, fontSize = 32.sp, fontWeight = FontWeight.SemiBold)
+                Text(text = "Hello, ${user.value.data.name}", color = Color.Black, fontSize = 32.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(text = "Lorem ipsum dolor si amet", color = Color.Black, fontWeight = FontWeight.Medium)
             }

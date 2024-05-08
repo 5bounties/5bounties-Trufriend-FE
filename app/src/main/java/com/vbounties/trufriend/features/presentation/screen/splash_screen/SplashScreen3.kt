@@ -48,7 +48,7 @@ import kotlinx.coroutines.delay
 fun SplashScreen3(loginController: NavController = rememberNavController()){
     LaunchedEffect(key1 = true){
         delay(8000)
-        loginController.navigate(LoginNavigation.Login.route)
+        loginController.navigate(LoginNavigation.Splash4.route)
     }
 
     Scaffold(
@@ -102,7 +102,7 @@ fun SplashScreen3(loginController: NavController = rememberNavController()){
                         Box(modifier = Modifier
                             .fillMaxSize()
                             .clickable {
-                                loginController.navigate(LoginNavigation.Login.route)
+                                loginController.navigate(LoginNavigation.Splash4.route)
                             }, contentAlignment = Alignment.Center){
                             Icon(imageVector = Icons.Rounded.ArrowForwardIos, contentDescription = "next", tint = Color.White, modifier = Modifier.size(30.dp))
                         }

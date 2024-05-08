@@ -3,6 +3,7 @@ package com.vbounties.trufriend.features.data.remote
 import com.vbounties.trufriend.features.data.remote.response.UserResponse
 import com.vbounties.trufriend.features.data.remote.response.LoginResponse
 import com.vbounties.trufriend.features.data.remote.response.RegisterResponse
+import com.vbounties.trufriend.features.data.remote.response.UserEmotionResponse
 import com.vbounties.trufriend.features.domain.model.LoginModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -38,4 +39,15 @@ interface TruefriendAPI {
         @Header("superadmin") token: String,
         @Path("id") id: String
     ): UserResponse
+
+    @GET("emotion")
+    suspend fun getAllEmotion(
+        @Header("Authorization") token: String
+    ): UserEmotionResponse
+
+    @GET("emotion/{id}")
+    suspend fun getEmotionById(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): UserEmotionResponse
 }

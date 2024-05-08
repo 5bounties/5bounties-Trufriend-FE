@@ -105,10 +105,10 @@ fun SignInScreen(
         .background(Color.White)){
         Column(modifier = Modifier
             .fillMaxSize()
-            .padding(start = 16.dp, end = 16.dp, bottom = 80.dp),
+            .padding(start = 16.dp, end = 16.dp, bottom = 60.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Sign up", fontWeight = FontWeight.Bold, fontSize = 36.sp, color = Color(0xFFC36528), lineHeight = 36.sp)
+            Text(text = "Daftarkan Akunmu", fontWeight = FontWeight.Bold, fontSize = 36.sp, color = Color(0xFFC36528), lineHeight = 36.sp)
             Spacer(modifier = Modifier.height(32.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Card(modifier = Modifier
@@ -237,13 +237,13 @@ fun SignInScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
                 Checkbox(checked = true, onCheckedChange ={}, colors = CheckboxDefaults.colors(Color(0xFFC36528)))
-                Text(text = "I have agreed to CODEMATE's Terms and Conditions", color = Color.Gray, fontSize = 11.sp)
+                Text(text = "I have agreed to TruFriend Terms and Conditions", color = Color.Gray, fontSize = 11.sp)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
             Card(modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp),
+                .height(48.dp),
                 colors = CardDefaults.cardColors(Color(0xFFC36528))
             ) {
                 Row(modifier = Modifier
@@ -267,7 +267,7 @@ fun SignInScreen(
                             Toast.makeText(context, "Isikan form dengan benar", Toast.LENGTH_SHORT).show()
                         }
                     }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-                    Text(text = "Sign-In", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+                    Text(text = "Daftar", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
                 }
             }
         }
