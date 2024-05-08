@@ -1,6 +1,7 @@
 package com.vbounties.trufriend.features.presentation.screen.setting_screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -45,6 +46,7 @@ fun SettingScreen(
     parentController: NavController = rememberNavController()
 ){
     Scaffold(
+        containerColor = Color.White,
         topBar = {
             Card(
                 modifier = Modifier
@@ -70,7 +72,8 @@ fun SettingScreen(
         content = {
             Box(modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 90.dp)){
+                .padding(top = 90.dp).background(Color.White)
+            ){
                 Column(modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 32.dp), horizontalAlignment = Alignment.CenterHorizontally) {

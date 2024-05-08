@@ -1,5 +1,6 @@
 package com.vbounties.trufriend.features.presentation.screen.tracker_screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,9 +15,13 @@ import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vbounties.trufriend.R
 
 @Composable
+@Preview
 fun OrbitWidget(){
     Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Center) {
         Column(modifier = Modifier
@@ -25,7 +30,9 @@ fun OrbitWidget(){
             .padding(top = 90.dp)) {
             Card(modifier = Modifier
                 .size(50.dp)
-                .clip(CircleShape)){}
+                .clip(CircleShape)){
+                Image(painter = painterResource(id = R.drawable.mood1), contentDescription = "mood 1", modifier = Modifier.fillMaxSize())
+            }
         }
 
         Column(modifier = Modifier
@@ -34,7 +41,9 @@ fun OrbitWidget(){
             .padding(top = 30.dp)) {
             Card(modifier = Modifier
                 .size(50.dp)
-                .clip(CircleShape)){}
+                .clip(CircleShape)){
+                Image(painter = painterResource(id = R.drawable.mood2), contentDescription = "mood 2", modifier = Modifier.fillMaxSize())
+            }
         }
         Spacer(modifier = Modifier.width(24.dp))
         Column(modifier = Modifier
@@ -42,7 +51,9 @@ fun OrbitWidget(){
             .width(50.dp)) {
             Card(modifier = Modifier
                 .size(50.dp)
-                .clip(CircleShape)){}
+                .clip(CircleShape)){
+                Image(painter = painterResource(id = R.drawable.mood3), contentDescription = "mood 1", modifier = Modifier.fillMaxSize())
+            }
         }
         Spacer(modifier = Modifier.width(24.dp))
         Column(modifier = Modifier
@@ -51,7 +62,9 @@ fun OrbitWidget(){
             .padding(top = 30.dp)) {
             Card(modifier = Modifier
                 .size(50.dp)
-                .clip(CircleShape)){}
+                .clip(CircleShape)){
+                Image(painter = painterResource(id = R.drawable.mood4), contentDescription = "mood 1", modifier = Modifier.fillMaxSize())
+            }
         }
         Column(modifier = Modifier
             .fillMaxHeight()
@@ -59,7 +72,9 @@ fun OrbitWidget(){
             .padding(top = 90.dp)) {
             Card(modifier = Modifier
                 .size(50.dp)
-                .clip(CircleShape)){}
+                .clip(CircleShape)){
+                Image(painter = painterResource(id = R.drawable.mood5), contentDescription = "mood 1", modifier = Modifier.fillMaxSize())
+            }
         }
     }
 }

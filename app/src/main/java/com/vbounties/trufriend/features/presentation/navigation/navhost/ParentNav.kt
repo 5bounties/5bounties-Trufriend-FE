@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.features.presentation.navigation.BottomNavigation
 import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentNavigation
 import com.vbounties.trufriend.features.presentation.screen.profile_screen.ProfileScreen
+import com.vbounties.trufriend.features.presentation.screen.setting_screen.SettingScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -27,7 +28,7 @@ fun ParentNav(){
             ProfileScreen(parentController)
         }
         composable(route = ParentNavigation.Settings.route){
-            ProfileScreen(parentController)
+            SettingScreen(parentController)
         }
     }
 }

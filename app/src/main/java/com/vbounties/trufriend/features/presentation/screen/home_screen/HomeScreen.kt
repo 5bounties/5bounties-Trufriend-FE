@@ -70,7 +70,7 @@ fun HomeScreen(
                     Card(modifier = Modifier
                         .size(50.dp)
                         .clickable {
-                            parentController.navigate(ParentNavigation.Profile.route)
+                            parentController.navigate(ParentNavigation.Settings.route)
                         }){}
                 }
             }
