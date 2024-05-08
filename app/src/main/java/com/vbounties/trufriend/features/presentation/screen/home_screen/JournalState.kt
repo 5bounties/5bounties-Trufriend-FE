@@ -1,13 +1,13 @@
 package com.vbounties.trufriend.features.presentation.screen.home_screen
 
-import com.vbounties.trufriend.features.data.remote.response.UserEmotionResponse
+import com.vbounties.trufriend.features.data.remote.response.GetAllJournalResponse
 
-data class EmotionState(
+data class JournalState(
     val isLoading: Boolean = true,
     val message: String = "default",
-    val data: UserEmotionResponse = UserEmotionResponse(
+    val data: GetAllJournalResponse = GetAllJournalResponse(
         status = 0,
         message = "default",
         data = listOf()
-    ),
+    )
 )

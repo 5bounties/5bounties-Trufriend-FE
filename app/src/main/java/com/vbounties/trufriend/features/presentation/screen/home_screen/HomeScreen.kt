@@ -57,13 +57,9 @@ fun HomeScreen(
 ){
     val viewModel = hiltViewModel<HomeViewModel>()
     val user = remember { mutableStateOf(UserState()) }
-    val emotion = remember { mutableStateOf(EmotionState()) }
     val userAvatar = remember{ mutableStateOf("") }
     viewModel.getUser {
         user.value = it
-        viewModel.getEmotionById(user.value.data.id){
-            emotion.value = it
-        }
         userAvatar.value = "https://uitrssskfwjwscymocmu.supabase.co/storage/v1/object/public/avatar/" + it.data.avatarUrl.substringAfterLast("/")
     }
     val context = LocalContext.current

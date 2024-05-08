@@ -25,9 +25,6 @@ class HomeViewModel @Inject constructor(
     private val _userstate = MutableStateFlow(UserState())
     val userstate = _userstate.asStateFlow()
 
-    private val _emotionstate = MutableStateFlow(EmotionState())
-    val emotionstate = _emotionstate.asStateFlow()
-
     fun getUser(onFinished: (UserState) -> Unit) {
         viewModelScope.launch {
             authRepository.GetUserEntity().collect { result ->
@@ -57,45 +54,6 @@ class HomeViewModel @Inject constructor(
                         Log.d("ProfileViewModel", "getUser: ${result.data}")
                         _userstate.update { currentState ->
                             currentState.copy(
-                                isLoading = result.isLoading
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fun getEmotionById(id: String, onFinished: (EmotionState) -> Unit){
-        viewModelScope.launch {
-            emotionRepository.getEmotionByID(id).collect{ result ->
-                when(result){
-                    is Result.Success ->{
-                        _emotionstate.update { emotionstate ->
-                            emotionstate.copy(
-                                message = "Fetch Berhasil",
-                                isLoading = false,
-                                data = result.data ?: UserEmotionResponse(
-                                    status = 0,
-                                    message = "default",
-                                    data = listOf()
-                                )
-                            )
-                        }
-                    }
-
-                    is Result.Error ->{
-                        _emotionstate.update { emotionstate ->
-                            emotionstate.copy(
-                                message = result.message ?: "Fetch Gagal",
-                                isLoading = false
-                            )
-                        }
-                    }
-
-                    is Result.Loading ->{
-                        _emotionstate.update { emotionstate ->
-                            emotionstate.copy(
                                 isLoading = result.isLoading
                             )
                         }
