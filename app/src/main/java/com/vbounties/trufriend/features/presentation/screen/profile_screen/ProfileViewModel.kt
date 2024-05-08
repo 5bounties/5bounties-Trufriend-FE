@@ -25,6 +25,12 @@ class ProfileViewModel @Inject constructor(
     private val _userstate = MutableStateFlow(UserState())
     val userstate = _userstate.asStateFlow()
 
+    fun logOut(){
+        viewModelScope.launch {
+            authRepository.LogOut()
+        }
+    }
+
     fun getUser(onFinished: (UserState) -> Unit) {
         viewModelScope.launch {
             authRepository.GetUserEntity().collect { result ->

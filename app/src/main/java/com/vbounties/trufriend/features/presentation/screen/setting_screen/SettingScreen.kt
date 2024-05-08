@@ -34,10 +34,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.R
 import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentNavigation
+import com.vbounties.trufriend.features.presentation.screen.profile_screen.ProfileViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -45,6 +47,7 @@ import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentN
 fun SettingScreen(
     parentController: NavController = rememberNavController()
 ){
+    val viewModel = hiltViewModel<ProfileViewModel>()
     Scaffold(
         containerColor = Color.White,
         topBar = {
@@ -72,7 +75,8 @@ fun SettingScreen(
         content = {
             Box(modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 90.dp).background(Color.White)
+                .padding(top = 90.dp)
+                .background(Color.White)
             ){
                 Column(modifier = Modifier
                     .fillMaxSize()
@@ -91,7 +95,8 @@ fun SettingScreen(
                             Row(modifier = Modifier
                                 .fillMaxWidth()
                                 .height(60.dp)
-                                .clip(RoundedCornerShape(50.dp)).clickable {
+                                .clip(RoundedCornerShape(50.dp))
+                                .clickable {
                                     parentController.navigate(ParentNavigation.Profile.route)
                                 }, verticalAlignment = Alignment.CenterVertically) {
                                 Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center){
@@ -102,7 +107,9 @@ fun SettingScreen(
 
                             Row(modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp).clip(RoundedCornerShape(50.dp)).clickable {
+                                .height(60.dp)
+                                .clip(RoundedCornerShape(50.dp))
+                                .clickable {
 
                                 }, verticalAlignment = Alignment.CenterVertically) {
                                 Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center){
@@ -113,7 +120,9 @@ fun SettingScreen(
 
                             Row(modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp).clip(RoundedCornerShape(50.dp)).clickable {
+                                .height(60.dp)
+                                .clip(RoundedCornerShape(50.dp))
+                                .clickable {
 
                                 }, verticalAlignment = Alignment.CenterVertically) {
                                 Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center){
@@ -124,7 +133,9 @@ fun SettingScreen(
 
                             Row(modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp).clip(RoundedCornerShape(50.dp)).clickable {
+                                .height(60.dp)
+                                .clip(RoundedCornerShape(50.dp))
+                                .clickable {
 
                                 }, verticalAlignment = Alignment.CenterVertically) {
                                 Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center){
@@ -135,7 +146,9 @@ fun SettingScreen(
 
                             Row(modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp).clip(RoundedCornerShape(50.dp)).clickable {
+                                .height(60.dp)
+                                .clip(RoundedCornerShape(50.dp))
+                                .clickable {
 
                                 }, verticalAlignment = Alignment.CenterVertically) {
                                 Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center){
@@ -146,7 +159,9 @@ fun SettingScreen(
 
                             Row(modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp).clip(RoundedCornerShape(50.dp)).clickable {
+                                .height(60.dp)
+                                .clip(RoundedCornerShape(50.dp))
+                                .clickable {
 
                                 }, verticalAlignment = Alignment.CenterVertically) {
                                 Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center){
@@ -165,7 +180,12 @@ fun SettingScreen(
                         colors = CardDefaults.cardColors(Color(0xFFFFB764)),
                         elevation = CardDefaults.cardElevation(4.dp)
                     ) {
-                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                        Box(modifier = Modifier
+                            .fillMaxSize()
+                            .clickable {
+                                viewModel.logOut()
+                                parentController.navigate(ParentNavigation.LoginNav.route)
+                            }, contentAlignment = Alignment.Center){
                             Text(text = "Keluar Akun", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
                         }
                     }

@@ -47,6 +47,15 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun LogOut() {
+        try {
+            userDatabase.userDao().deleteUser()
+            Log.d("LogOut", "Success")
+        } catch (e: Exception){
+            Log.d("LogOut", e.message.toString())
+        }
+    }
+
     override suspend fun PostRegister(context: Context, request: RegisterModel): Flow<Result<RegisterResponse>> {
         return flow {
             emit(Result.Loading(isLoading = true))

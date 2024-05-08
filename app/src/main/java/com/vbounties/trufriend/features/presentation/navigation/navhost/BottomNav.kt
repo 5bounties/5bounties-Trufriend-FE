@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -130,7 +131,7 @@ fun BottomNav(parentController: NavController = rememberNavController()){
 fun BottomNavBar(bottomController: NavController = rememberNavController()){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(80.dp),
+        .height(90.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(Color(0xFFFCEEE0)),
         shape = RectangleShape
@@ -142,42 +143,42 @@ fun BottomNavBar(bottomController: NavController = rememberNavController()){
                 .fillMaxHeight()
                 .width(60.dp).clip(RoundedCornerShape(8.dp))
                 .clickable { bottomController.navigate(BottomNavigation.Home.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                Box(modifier = Modifier.size(50.dp), contentAlignment = Alignment.Center){
+                Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.home), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
                 }
-                Text(text = "Home", modifier = Modifier, color = Color.Gray)
+                Text(text = "Home", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
             }
 
             Column(modifier = Modifier
                 .fillMaxHeight()
                 .width(60.dp).clip(RoundedCornerShape(8.dp))
                 .clickable { bottomController.navigate(BottomNavigation.Learn.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                Box(modifier = Modifier.size(50.dp), contentAlignment = Alignment.Center){
+                Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.edhub), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
                 }
-                Text(text = "EdHub", modifier = Modifier, color = Color.Gray)
+                Text(text = "EdHub", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
             }
 
             Column(modifier = Modifier
                 .fillMaxHeight()
                 .width(60.dp).clip(RoundedCornerShape(8.dp))
-                .clickable { bottomController.navigate(BottomNavigation.Learn.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                Box(modifier = Modifier.size(50.dp), contentAlignment = Alignment.Center){
+                .clickable { bottomController.navigate(BottomNavigation.Tracker.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.journal), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
                 }
 
-                Text(text = "Journal", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Learn.route) }, color = Color.Gray)
+                Text(text = "Journal", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
             }
 
             Column(modifier = Modifier
                 .fillMaxHeight()
                 .width(60.dp).clip(RoundedCornerShape(8.dp))
-                .clickable { bottomController.navigate(BottomNavigation.Learn.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                Box(modifier = Modifier.size(50.dp), contentAlignment = Alignment.Center){
+                .clickable {  }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.forum), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
                 }
 
-                Text(text = "Forum", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Learn.route) }, color = Color.Gray)
+                Text(text = "Forum", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
             }
 
             //Text(text = "Search", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Search.route) })

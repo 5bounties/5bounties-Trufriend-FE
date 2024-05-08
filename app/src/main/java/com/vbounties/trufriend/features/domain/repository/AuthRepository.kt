@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
     suspend fun GetUserEntity(): Flow<Result<UserEntity>>
+    suspend fun LogOut()
     suspend fun PostRegister(context: Context, request: RegisterModel): Flow<Result<RegisterResponse>>
     suspend fun PostLogin(request: LoginModel):  Flow<Result<LoginResponse>>
 }
