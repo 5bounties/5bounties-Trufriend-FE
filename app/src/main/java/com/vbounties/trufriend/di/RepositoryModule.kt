@@ -2,9 +2,13 @@ package com.vbounties.trufriend.di
 
 import com.vbounties.trufriend.features.data.repository.AuthRepositoryImpl
 import com.vbounties.trufriend.features.data.repository.EmotionRepositoryImpl
+import com.vbounties.trufriend.features.data.repository.JournalRepositoryImpl
+import com.vbounties.trufriend.features.data.repository.PostRepositoryImpl
 import com.vbounties.trufriend.features.data.repository.UserRepositoryImpl
 import com.vbounties.trufriend.features.domain.repository.AuthRepository
 import com.vbounties.trufriend.features.domain.repository.EmotionRepository
+import com.vbounties.trufriend.features.domain.repository.JournalRepository
+import com.vbounties.trufriend.features.domain.repository.PostRepository
 import com.vbounties.trufriend.features.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -32,4 +36,16 @@ abstract class RepositoryModule {
     abstract fun bindEmotionRepository(
         emotionRepositoryImpl: EmotionRepositoryImpl
     ): EmotionRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindJournalRepository(
+        journalRepositoryImpl: JournalRepositoryImpl
+    ): JournalRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindPostRepository(
+        postRepositoryImpl: PostRepositoryImpl
+    ): PostRepository
 }

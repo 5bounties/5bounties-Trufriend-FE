@@ -1,6 +1,7 @@
 package com.vbounties.trufriend.features.data.remote
 
 import com.vbounties.trufriend.features.data.remote.response.GetAllJournalResponse
+import com.vbounties.trufriend.features.data.remote.response.GetAllPostResponse
 import com.vbounties.trufriend.features.data.remote.response.UserResponse
 import com.vbounties.trufriend.features.data.remote.response.LoginResponse
 import com.vbounties.trufriend.features.data.remote.response.PostJournalResponse
@@ -80,4 +81,68 @@ interface TruefriendAPI {
         @Path("journal_id") journal_id: String
     ): GetAllJournalResponse
 
+    @GET("post")
+    suspend fun getAllPost(
+        @Header("Authorization") token: String
+    ): GetAllPostResponse
+
+    @Multipart
+    @POST("post")
+    suspend fun PostCreatePost(
+        @Header("Authorization") token: String,
+        @Part("content") content: RequestBody,
+        @Part image: MultipartBody.Part
+    )
+
+    @PUT("post/{post_id}")
+    suspend fun putUpdatePost(
+        @Header("Authorization") token: String,
+        @Path("post_id") post_id: String,
+        @Body content: RequestBody,
+        @Part image: MultipartBody.Part
+    )
+
+    @DELETE("post/{post_id}")
+    suspend fun deletePost(
+        @Header("Authorization") token: String,
+        @Path("post_id") post_id: String
+    )
+
+    @GET("post/{post_id}/likes")
+    suspend fun getLikePost(
+        @Header("Authorization") token: String,
+        @Path("post_id") post_id: String
+    )
+
+    @POST("post/{post_id}/likes")
+    suspend fun PostAddLike(
+        @Header("Authorization") token: String,
+        @Path("post_id") post_id: String
+    )
+
+    @DELETE("post/{post_id}/likes")
+    suspend fun deleteLikePost(
+        @Header("Authorization") token: String,
+        @Path("post_id") post_id: String
+    )
+
+    @GET("post/{post_id}/comments")
+    suspend fun getCommentPost(
+        @Header("Authorization") token: String,
+        @Path("post_id") post_id: String
+    )
+
+    @POST("post/{post_id}/comments")
+    suspend fun PostAddComment(
+        @Header("Authorization") token: String,
+        @Path("post_id") post_id: String,
+        @Body content: RequestBody
+    )
+
+    @DELETE("post/{post_id}/comments/{comment_id}")
+    suspend fun deleteComment(
+        @Header("Authorization") token: String,
+        @Path("post_id") post_id: String,
+        @Path("comment_id") comment_id: String
+    )
 }
