@@ -1,6 +1,7 @@
 package com.vbounties.trufriend.features.presentation.screen.splash_screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,12 +21,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.vbounties.trufriend.R
 import com.vbounties.trufriend.features.presentation.design_system.TrufriendPurple
 import com.vbounties.trufriend.features.presentation.design_system.TrufriendYellow
 import com.vbounties.trufriend.features.presentation.navigation.`object`.LoginNavigation
@@ -49,8 +52,8 @@ fun SplashScreen0(
                 .background(Color.White),
                 contentAlignment = Alignment.Center
             ){
-                Card(modifier = Modifier.size(120.dp)) {
-
+                Box(modifier = Modifier.size(120.dp)) {
+                    Image(painter = painterResource(id = R.drawable.logoxl), contentDescription = "logo")
                 }
             }
         },
@@ -61,10 +64,10 @@ fun SplashScreen0(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
                 ) {
-                CircularProgressIndicator(color = TrufriendPurple)
+                CircularProgressIndicator(color = Color(0xFFFFB764))
                 Spacer(modifier = Modifier.height(72.dp))
-                Text(text = "Created by", fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = TrufriendYellow)
-                Text(text = "Lorem Ipsum", fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = TrufriendPurple)
+                Text(text = "Created by", fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = Color(0xFFC36528))
+                Text(text = "5bounties", fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = Color(0xFF458956))
             }
         }
     )

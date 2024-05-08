@@ -83,9 +83,9 @@ fun LoginScreen(
             .padding(start = 16.dp, end = 16.dp, bottom = 100.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Welcome\nBack.", fontWeight = FontWeight.Bold, fontSize = 36.sp, color = TrufriendPurple, lineHeight = 36.sp)
+            Text(text = "Selamat Datang \nKembali\uD83D\uDE04", fontWeight = FontWeight.Bold, fontSize = 36.sp, color = Color(0xFFC36528), lineHeight = 42.sp)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Sign-in untuk melanjutkan", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+            Text(text = "Isi data akun yang telah dibuat untuk \nmelanjutkan", fontSize = 16.sp, fontWeight = FontWeight.Medium)
 
             Spacer(modifier = Modifier.height(32.dp))
             Card(modifier = Modifier
@@ -139,7 +139,7 @@ fun LoginScreen(
             Card(modifier = Modifier
                 .fillMaxWidth()
                 .height(40.dp),
-                colors = CardDefaults.cardColors(TrufriendPurple)
+                colors = CardDefaults.cardColors(Color(0xFFC36528))
             ) {
                 Row(modifier = Modifier
                     .fillMaxSize()

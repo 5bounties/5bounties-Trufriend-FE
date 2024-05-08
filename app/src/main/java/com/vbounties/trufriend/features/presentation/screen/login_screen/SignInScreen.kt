@@ -105,16 +105,16 @@ fun SignInScreen(
         .background(Color.White)){
         Column(modifier = Modifier
             .fillMaxSize()
-            .padding(start = 16.dp, end = 16.dp, bottom = 100.dp),
+            .padding(start = 16.dp, end = 16.dp, bottom = 80.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Sign up", fontWeight = FontWeight.Bold, fontSize = 36.sp, color = TrufriendPurple, lineHeight = 36.sp)
+            Text(text = "Sign up", fontWeight = FontWeight.Bold, fontSize = 36.sp, color = Color(0xFFC36528), lineHeight = 36.sp)
             Spacer(modifier = Modifier.height(32.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Card(modifier = Modifier
                     .size(100.dp),
-                    colors = CardDefaults.cardColors(TrufriendYellow),
-                    border = BorderStroke(2.dp, TrufriendYellow),
+                    colors = CardDefaults.cardColors(Color(0xFFC36528)),
+                    border = BorderStroke(2.dp, Color(0xFFC36528)),
                     shape = CircleShape
                 ) {
                     Box(modifier = Modifier
@@ -236,7 +236,7 @@ fun SignInScreen(
             }
             Spacer(modifier = Modifier.height(16.dp))
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
-                Checkbox(checked = true, onCheckedChange ={}, colors = CheckboxDefaults.colors(TrufriendPurple))
+                Checkbox(checked = true, onCheckedChange ={}, colors = CheckboxDefaults.colors(Color(0xFFC36528)))
                 Text(text = "I have agreed to CODEMATE's Terms and Conditions", color = Color.Gray, fontSize = 11.sp)
             }
 
@@ -244,7 +244,7 @@ fun SignInScreen(
             Card(modifier = Modifier
                 .fillMaxWidth()
                 .height(40.dp),
-                colors = CardDefaults.cardColors(TrufriendPurple)
+                colors = CardDefaults.cardColors(Color(0xFFC36528))
             ) {
                 Row(modifier = Modifier
                     .fillMaxSize()

@@ -52,14 +52,18 @@ fun SplashScreen1(
     }
 
     Scaffold(
+        containerColor = Color(0xFFDFC9BD),
         content = {
             Box(modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 48.dp), contentAlignment = Alignment.Center){
+                .padding(bottom = 120.dp), contentAlignment = Alignment.Center){
                 Column(modifier = Modifier.fillMaxWidth(0.9f)) {
-                    Image(painter = painterResource(id = R.drawable.splashscreen1), contentDescription = "splash")
+                    Box(modifier = Modifier.fillMaxWidth().height(300.dp), contentAlignment = Alignment.Center){
+                        Image(painter = painterResource(id = R.drawable.splashnew1), contentDescription = "splash", modifier = Modifier.size(300.dp))
+                    }
+
                     Spacer(modifier = Modifier.height(32.dp))
-                    Text(text = "Selamat datang di Academate!", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
+                    Text(text = "Selamat datang di TruFriend :)", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Kembangkan diri Anda melalui peluang yang kami tawarkan", fontWeight = FontWeight.Medium)
                 }
@@ -71,15 +75,17 @@ fun SplashScreen1(
                 .padding(horizontal = 16.dp, vertical = 48.dp), horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(painter = painterResource(id = R.drawable.singledot1), contentDescription = "singledot", modifier = Modifier.scale(0.8f))
+                Image(painter = painterResource(id = R.drawable.singledotnew1), contentDescription = "singledot", modifier = Modifier.scale(0.8f))
                 Card(modifier = Modifier
                     .size(70.dp)
                     .clip(CircleShape),
-                    colors = CardDefaults.cardColors(TrufriendPurple)
+                    colors = CardDefaults.cardColors(Color(0xFFC36528))
                 ){
-                    Box(modifier = Modifier.fillMaxSize().clickable {
-                                                                    loginController.navigate(LoginNavigation.Splash2.route)
-                    }, contentAlignment = Alignment.Center){
+                    Box(modifier = Modifier
+                        .fillMaxSize()
+                        .clickable {
+                            loginController.navigate(LoginNavigation.Splash2.route)
+                        }, contentAlignment = Alignment.Center){
                         Icon(imageVector = Icons.Rounded.ArrowForwardIos, contentDescription = "next", tint = Color.White, modifier = Modifier.size(30.dp))
                     }
                 }
