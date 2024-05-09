@@ -39,6 +39,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.R
 import com.vbounties.trufriend.features.presentation.navigation.BottomNavigation
+import com.vbounties.trufriend.features.presentation.screen.forum_screen.ForumScreen
 import com.vbounties.trufriend.features.presentation.screen.home_screen.HomeScreen
 import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen1
 import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen2
@@ -187,6 +188,19 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                 ){
                     YogaScreen(bottomController)
                 }
+
+                composable(BottomNavigation.Forum.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    ForumScreen(parentController = parentController, bottomController = bottomController)
+                }
             }
         },
         bottomBar = {
@@ -246,16 +260,15 @@ fun BottomNavBar(bottomController: NavController = rememberNavController()){
                 .fillMaxHeight()
                 .width(60.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                .clickable {
+                    bottomController.navigate(BottomNavigation.Forum.route)
+                }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.forum), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
                 }
 
                 Text(text = "Forum", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
             }
-
-            //Text(text = "Search", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Search.route) })
-            //Text(text = "Meditation", modifier = Modifier.clickable { bottomController.navigate(BottomNavigation.Meditation.route) })
         }
     }
 }
