@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.PersonOutline
@@ -47,6 +48,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import com.vbounties.trufriend.R
+import com.vbounties.trufriend.features.data.remote.response.JournalData2
 import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentNavigation
 import com.vbounties.trufriend.features.presentation.screen.profile_screen.UserState
 
@@ -57,12 +59,17 @@ fun HomeScreen(
 ){
     val viewModel = hiltViewModel<HomeViewModel>()
     val user = remember { mutableStateOf(UserState()) }
+    val journal = remember { mutableStateOf(JournalState()) }
     val userAvatar = remember{ mutableStateOf("") }
     viewModel.getUser {
         user.value = it
         userAvatar.value = "https://uitrssskfwjwscymocmu.supabase.co/storage/v1/object/public/avatar/" + it.data.avatarUrl.substringAfterLast("/")
     }
     val context = LocalContext.current
+
+    viewModel.getJournal {
+        journal.value = it
+    }
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -111,42 +118,55 @@ fun HomeScreen(
             }
             item { Spacer(modifier = Modifier.padding(16.dp)) }
             item {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(160.dp),
-                    colors = CardDefaults.cardColors(Color(0xFFFAE6D1)),
-                    elevation = CardDefaults.cardElevation(2.dp)
-                ) {
-                    Row(modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(modifier = Modifier
-                            .fillMaxHeight()
-                            .fillMaxWidth(0.5f)
-                            .padding(vertical = 8.dp),
-                            verticalArrangement = Arrangement.SpaceBetween
+                LazyRow() {
+                    items(journal.value.data.data.filter { it.userId.equals(user.value.data.id) }){
+                        Card(
+                            modifier = Modifier
+                                .width(360.dp)
+                                .height(160.dp),
+                            colors = CardDefaults.cardColors(Color(0xFFFAE6D1)),
+                            elevation = CardDefaults.cardElevation(2.dp)
                         ) {
-                            Text(text = "Perkembangan mood kamu di 7 hari terakhir", fontSize = 12.sp)
-                            Text(text = "Senang moderat", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
-                            Text(text = "Lebih baik daripada minggu sebelumnya", fontSize = 12.sp)
-                        }
-                        Column(modifier = Modifier
-                            .fillMaxHeight()
-                            .fillMaxWidth()
-                            .padding(end = 12.dp),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.End
-                        ){
-                            Card(modifier = Modifier
-                                .size(100.dp)
-                                .clip(CircleShape)) {
-                                Image(painter = painterResource(id = R.drawable.mood3), contentDescription = "mood", modifier = Modifier.fillMaxSize())
+                            Row(modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Column(modifier = Modifier
+                                    .fillMaxHeight()
+                                    .fillMaxWidth(0.5f)
+                                    .padding(vertical = 8.dp),
+                                    verticalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(text = "Perkembangan mood kamu baru-baru ini..", fontSize = 12.sp, lineHeight = 16.sp)
+                                    Text(text = it.mood, fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
+                                    Text(text = it.content, fontSize = 12.sp)
+                                }
+                                Column(modifier = Modifier
+                                    .fillMaxHeight()
+                                    .fillMaxWidth()
+                                    .padding(end = 12.dp),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.End
+                                ){
+                                    Card(modifier = Modifier
+                                        .size(100.dp)
+                                        .clip(CircleShape)) {
+                                        Image(painter = painterResource(id = when(it.mood){
+                                            "FINE" -> { R.drawable.mood1 }
+                                            "SAD" -> { R.drawable.mood2 }
+                                            "AWESOME" -> { R.drawable.mood3 }
+                                            "WORRIED" -> { R.drawable.mood4 }
+                                            "ANGRY" -> { R.drawable.mood5 }
+                                            else -> { R.drawable.mood1 }
+                                        }
+                                        ), contentDescription = "mood", modifier = Modifier.fillMaxSize())
+                                    }
+                                }
                             }
                         }
+                        Spacer(modifier = Modifier.padding(16.dp))
                     }
                 }
             }

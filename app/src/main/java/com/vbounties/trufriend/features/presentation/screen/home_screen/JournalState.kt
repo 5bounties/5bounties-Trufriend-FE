@@ -1,6 +1,7 @@
 package com.vbounties.trufriend.features.presentation.screen.home_screen
 
 import com.vbounties.trufriend.features.data.remote.response.GetAllJournalResponse
+import com.vbounties.trufriend.features.data.remote.response.JournalData2
 
 data class JournalState(
     val isLoading: Boolean = true,
@@ -8,6 +9,13 @@ data class JournalState(
     val data: GetAllJournalResponse = GetAllJournalResponse(
         status = 0,
         message = "default",
-        data = listOf()
+        data = listOf(JournalData2(
+            id = "default",
+            content = "default",
+            "default",
+            "default",
+            "default",
+            "default",
+        ))
     )
 )

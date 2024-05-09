@@ -42,12 +42,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.vbounties.trufriend.features.domain.model.EmotionModel
+import com.vbounties.trufriend.features.domain.model.EmotionType
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview
 fun TrackerScreen(){
     val isClicked = remember { mutableStateOf(false) }
+    val selectedEmotion = remember { mutableStateOf(EmotionType.DATAR) }
+    val isSelected = remember { mutableStateOf(false) }
+    val viewModel = hiltViewModel<TrackerViewModel>()
+
     Scaffold(
         containerColor = Color(0xFFFDF7F0),
         content = {
@@ -60,37 +67,44 @@ fun TrackerScreen(){
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Spacer(modifier = Modifier.height(72.dp))
-                    Text(text = "Catatan Moodmu :)", fontWeight = FontWeight.SemiBold, fontSize = 24.sp)
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Card(modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp),
-                        colors = CardDefaults.cardColors(Color.White),
-                        border = BorderStroke(1.dp, Color.Black),
-                        elevation = CardDefaults.cardElevation(8.dp)
-                    ) {
-                        Row(modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Icon(imageVector = Icons.Rounded.Search, contentDescription = "email", tint = Color.Gray)
-                            Spacer(modifier = Modifier.width(8.dp))
-                            BasicTextField(value = "Apa yang ingin kamu cari..?", onValueChange = {
 
-                            }, modifier = Modifier
-                                .fillMaxSize()
-                                .padding(vertical = 16.dp),
-                                textStyle = TextStyle(color = Color.Gray)
-                            )
+                    if(isSelected.value){
+                        CreateJournalCard(emotion = selectedEmotion.value){
+                            isSelected.value = false
+                            viewModel.postJournal(it)
                         }
-                    }
+                    } else {
+                        Text(text = "Catatan Moodmu :)", fontWeight = FontWeight.SemiBold, fontSize = 24.sp)
+                        Spacer(modifier = Modifier.height(24.dp))
+                        Card(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                            colors = CardDefaults.cardColors(Color.White),
+                            border = BorderStroke(1.dp, Color.Black),
+                            elevation = CardDefaults.cardElevation(8.dp)
+                        ) {
+                            Row(modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Icon(imageVector = Icons.Rounded.Search, contentDescription = "email", tint = Color.Gray)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                BasicTextField(value = "Apa yang ingin kamu cari..?", onValueChange = {
 
-                    Spacer(modifier = Modifier.height(24.dp))
-                    LazyRow(modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp)) {
-                        items(4){
-                            JournalCard()
-                            Spacer(modifier = Modifier.width(16.dp))
+                                }, modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(vertical = 16.dp),
+                                    textStyle = TextStyle(color = Color.Gray)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                        LazyRow(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp)) {
+                            items(4){
+                                JournalCard()
+                                Spacer(modifier = Modifier.width(16.dp))
+                            }
                         }
                     }
                 }
@@ -104,7 +118,11 @@ fun TrackerScreen(){
                 contentAlignment = Alignment.Center
             ){
                 if(isClicked.value){
-                    OrbitWidget()
+                    OrbitWidget(){
+                        isSelected.value = true
+                        selectedEmotion.value = it
+                        isClicked.value = false
+                    }
                 }
                 Card(modifier = Modifier
                     .size(100.dp)
