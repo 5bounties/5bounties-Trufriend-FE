@@ -1,5 +1,6 @@
 package com.vbounties.trufriend.features.presentation.screen.home_screen
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.PersonOutline
 import androidx.compose.material3.Card
@@ -55,12 +57,13 @@ import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentN
 import com.vbounties.trufriend.features.presentation.screen.forum_screen.ForumState
 import com.vbounties.trufriend.features.presentation.screen.forum_screen.ForumViewModel
 import com.vbounties.trufriend.features.presentation.screen.profile_screen.UserState
+import java.time.LocalDateTime
 
 @Composable
-@Preview
 fun HomeScreen(
     parentController: NavController = rememberNavController(),
-    bottomController: NavController = rememberNavController()
+    bottomController: NavController = rememberNavController(),
+    onChangeScreen: (Int) -> Unit
 ){
     val viewModel = hiltViewModel<HomeViewModel>()
     val viewModel2 = hiltViewModel<ForumViewModel>()
@@ -82,7 +85,10 @@ fun HomeScreen(
         forum.value = it
     }
 
-
+    if(user.value.data.timestamp.toInt() != LocalDateTime.now().hour){
+        Toast.makeText(LocalContext.current, "Login Expired", Toast.LENGTH_LONG).show()
+        parentController.navigate(LoginNavigation.Login.route)
+    }
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -136,7 +142,10 @@ fun HomeScreen(
                         Card(
                             modifier = Modifier
                                 .width(360.dp)
-                                .height(160.dp),
+                                .height(160.dp).clickable {
+                                     bottomController.navigate(BottomNavigation.Tracker.route)
+                                    onChangeScreen(2)
+                                }.clip(RoundedCornerShape(16.dp)),
                             colors = CardDefaults.cardColors(Color(0xFFFAE6D1)),
                             elevation = CardDefaults.cardElevation(2.dp)
                         ) {
@@ -195,6 +204,7 @@ fun HomeScreen(
                             .fillMaxSize()
                             .clickable {
                                 bottomController.navigate(BottomNavigation.Tracker.route)
+                                onChangeScreen(2)
                             }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                             Text(text = "Tambahkan Jurnal", color = Color(0xFFC36528), fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
                         }

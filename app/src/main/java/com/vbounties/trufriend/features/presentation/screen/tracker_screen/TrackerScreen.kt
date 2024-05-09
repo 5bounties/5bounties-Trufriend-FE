@@ -1,6 +1,7 @@
 package com.vbounties.trufriend.features.presentation.screen.tracker_screen
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,6 +56,7 @@ fun TrackerScreen(){
     val selectedEmotion = remember { mutableStateOf(EmotionType.DATAR) }
     val isSelected = remember { mutableStateOf(false) }
     val viewModel = hiltViewModel<TrackerViewModel>()
+    val context = LocalContext.current
 
     Scaffold(
         containerColor = Color(0xFFFDF7F0),
@@ -72,6 +75,7 @@ fun TrackerScreen(){
                         CreateJournalCard(emotion = selectedEmotion.value){
                             isSelected.value = false
                             viewModel.postJournal(it)
+                            Toast.makeText(context, "Berhasil Menambahkan Journal", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         Card(modifier = Modifier
@@ -96,7 +100,7 @@ fun TrackerScreen(){
                             }
                         }
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text(text = "Minggu ke-2 Bulan Mei", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
+                        Text(text = "Minggu ke-2 Mei 2024", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
                         Spacer(modifier = Modifier.height(16.dp))
 
                         LazyRow(modifier = Modifier

@@ -42,6 +42,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.R
 import com.vbounties.trufriend.features.presentation.navigation.BottomNavigation
+import com.vbounties.trufriend.features.presentation.screen.forum_screen.ForumProfile
 import com.vbounties.trufriend.features.presentation.screen.forum_screen.ForumScreen
 import com.vbounties.trufriend.features.presentation.screen.home_screen.HomeScreen
 import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen1
@@ -52,6 +53,7 @@ import com.vbounties.trufriend.features.presentation.screen.learn_screen.LearnSc
 import com.vbounties.trufriend.features.presentation.screen.meditation_screen.MeditationScreen
 import com.vbounties.trufriend.features.presentation.screen.search_screen.SearchScreen
 import com.vbounties.trufriend.features.presentation.screen.tracker_screen.TrackerScreen
+import com.vbounties.trufriend.features.presentation.screen.yoga_screen.YogaDetails
 import com.vbounties.trufriend.features.presentation.screen.yoga_screen.YogaScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -74,7 +76,9 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                     )
                 }
                 ){
-                    HomeScreen(parentController, bottomController)
+                    HomeScreen(parentController, bottomController){
+                        selected.value = it
+                    }
                 }
 
                 composable(BottomNavigation.Search.route, enterTransition = {
@@ -205,6 +209,32 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                 ){
                     ForumScreen(parentController = parentController, bottomController = bottomController)
                 }
+
+                composable(BottomNavigation.YogaDetails.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    YogaDetails(bottomController = bottomController)
+                }
+
+                composable(BottomNavigation.ForumProfile.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    ForumProfile(bottomController)
+                }
             }
         },
         bottomBar = {
@@ -231,9 +261,10 @@ fun BottomNavBar(bottomController: NavController = rememberNavController(), sele
                 .fillMaxHeight()
                 .width(60.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { bottomController.navigate(BottomNavigation.Home.route)
+                .clickable {
+                    bottomController.navigate(BottomNavigation.Home.route)
                     onSelected(0)
-                           }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
 
                     Icon(painter = painterResource(id = R.drawable.home), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f), tint = if(selected == 0){
@@ -254,9 +285,10 @@ fun BottomNavBar(bottomController: NavController = rememberNavController(), sele
                 .fillMaxHeight()
                 .width(60.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { bottomController.navigate(BottomNavigation.Learn.route)
+                .clickable {
+                    bottomController.navigate(BottomNavigation.Learn.route)
                     onSelected(1)
-                           }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
 
                     Icon(painter = painterResource(id = R.drawable.edhub), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f), tint = if(selected == 1){
@@ -276,9 +308,10 @@ fun BottomNavBar(bottomController: NavController = rememberNavController(), sele
                 .fillMaxHeight()
                 .width(60.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { bottomController.navigate(BottomNavigation.Tracker.route)
+                .clickable {
+                    bottomController.navigate(BottomNavigation.Tracker.route)
                     onSelected(2)
-                           }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
 
                     Icon(painter = painterResource(id = R.drawable.newjournal), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f), tint = if(selected == 2){

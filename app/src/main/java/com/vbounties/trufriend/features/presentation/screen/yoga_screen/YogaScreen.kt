@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.material.icons.rounded.PersonOutline
@@ -27,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
@@ -79,7 +81,9 @@ fun YogaScreen(
                 items(4){
                     Card(modifier = Modifier
                         .fillMaxWidth()
-                        .height(220.dp),
+                        .height(220.dp).clickable {
+                            bottomController.navigate(BottomNavigation.YogaDetails.route)
+                        }.clip(RoundedCornerShape(8.dp)),
                         colors = CardDefaults.cardColors(Color(0xFFFAE6D1))
                     ) {
                         Box(modifier = Modifier

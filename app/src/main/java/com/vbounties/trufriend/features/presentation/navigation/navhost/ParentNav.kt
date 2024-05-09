@@ -1,6 +1,7 @@
 package com.vbounties.trufriend.features.presentation.navigation.navhost
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,6 +21,7 @@ import com.vbounties.trufriend.features.presentation.screen.home_screen.HomeView
 import com.vbounties.trufriend.features.presentation.screen.profile_screen.ProfileScreen
 import com.vbounties.trufriend.features.presentation.screen.profile_screen.UserState
 import com.vbounties.trufriend.features.presentation.screen.setting_screen.SettingScreen
+import java.time.LocalDateTime
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -30,8 +33,12 @@ fun ParentNav(){
         user.value = it
     }
 
+    if(user.value.data.timestamp.toInt() != LocalDateTime.now().hour){
+        Toast.makeText(LocalContext.current, "Login Expired", Toast.LENGTH_LONG).show()
+    }
+
     val parentController = rememberNavController()
-    NavHost(navController = parentController, startDestination = if(user.value.data.name.equals("dummy")){
+    NavHost(navController = parentController, startDestination = if(user.value.data.name.equals("dummy") || user.value.data.timestamp.toInt() != LocalDateTime.now().hour){
         ParentNavigation.LoginNav.route
     } else {
         ParentNavigation.BottomNav.route

@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.DatabaseView
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.LocalDateTime
 
 @DatabaseView
 @Entity(tableName = "user")
@@ -24,5 +25,8 @@ data class UserEntity(
     val avatarUrl: String,
 
     @ColumnInfo(name = "token")
-    val token: String
+    val token: String,
+
+    @ColumnInfo(name = "timestamp")
+    val timestamp: String = LocalDateTime.now().hour.toString()
 )
