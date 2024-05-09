@@ -40,6 +40,10 @@ import androidx.navigation.compose.rememberNavController
 import com.vbounties.trufriend.R
 import com.vbounties.trufriend.features.presentation.navigation.BottomNavigation
 import com.vbounties.trufriend.features.presentation.screen.home_screen.HomeScreen
+import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen1
+import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen2
+import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen3
+import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen4
 import com.vbounties.trufriend.features.presentation.screen.learn_screen.LearnScreen
 import com.vbounties.trufriend.features.presentation.screen.meditation_screen.MeditationScreen
 import com.vbounties.trufriend.features.presentation.screen.search_screen.SearchScreen
@@ -90,7 +94,7 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                     )
                 }
                 ){
-                    LearnScreen()
+                    LearnScreen(bottomController)
                 }
 
                 composable(BottomNavigation.Tracker.route, enterTransition = {
@@ -117,6 +121,57 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                 }
                 ){
                     MeditationScreen()
+                }
+
+                composable(BottomNavigation.LearnDetail1.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    LearnDetailScreen1(bottomController)
+                }
+                composable(BottomNavigation.LearnDetail2.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    LearnDetailScreen2(bottomController)
+                }
+
+                composable(BottomNavigation.LearnDetail3.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    LearnDetailScreen3(bottomController)
+                }
+
+                composable(BottomNavigation.LearnDetail4.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    LearnDetailScreen4(bottomController)
                 }
             }
         },

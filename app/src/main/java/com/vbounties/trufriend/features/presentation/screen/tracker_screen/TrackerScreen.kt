@@ -49,11 +49,11 @@ import androidx.compose.ui.unit.sp
 fun TrackerScreen(){
     val isClicked = remember { mutableStateOf(false) }
     Scaffold(
-        containerColor = Color(0xFFFCF6EF),
+        containerColor = Color(0xFFFDF7F0),
         content = {
             Box(modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)){
+                .background(Color(0xFFFDF7F0))){
                 Column(modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp),

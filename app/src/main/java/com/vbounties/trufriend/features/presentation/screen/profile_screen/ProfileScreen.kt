@@ -109,7 +109,7 @@ fun ProfileScreen(
                     .fillMaxWidth()
                     .padding(top = 24.dp),
                 shape = RectangleShape,
-                colors = CardDefaults.cardColors(Color.White)
+                colors = CardDefaults.cardColors(Color(0xFFFDF7F0))
             ) {
                 Row(
                     modifier = Modifier
@@ -128,7 +128,7 @@ fun ProfileScreen(
         content = {
             Box(modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)){
+                .background(Color(0xFFFDF7F0))){
                 Column(modifier = Modifier
                     .fillMaxSize()
                     .padding(start = 16.dp, end = 16.dp, bottom = 100.dp),

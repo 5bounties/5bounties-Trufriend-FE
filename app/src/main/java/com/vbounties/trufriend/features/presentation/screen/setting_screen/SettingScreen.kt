@@ -49,14 +49,14 @@ fun SettingScreen(
 ){
     val viewModel = hiltViewModel<ProfileViewModel>()
     Scaffold(
-        containerColor = Color.White,
+        containerColor = Color(0xFFFDF7F0),
         topBar = {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 24.dp),
                 shape = RectangleShape,
-                colors = CardDefaults.cardColors(Color.White)
+                colors = CardDefaults.cardColors(Color(0xFFFDF7F0))
             ) {
                 Row(
                     modifier = Modifier
@@ -76,7 +76,7 @@ fun SettingScreen(
             Box(modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 90.dp)
-                .background(Color.White)
+                .background(Color(0xFFFDF7F0))
             ){
                 Column(modifier = Modifier
                     .fillMaxSize()

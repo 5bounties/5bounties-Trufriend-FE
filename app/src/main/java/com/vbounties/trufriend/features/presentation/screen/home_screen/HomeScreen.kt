@@ -66,7 +66,7 @@ fun HomeScreen(
 
     Box(modifier = Modifier
         .fillMaxSize()
-        .background(Color.White)){
+        .background(Color(0xFFFDF7F0))){
         LazyColumn(modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)) {
