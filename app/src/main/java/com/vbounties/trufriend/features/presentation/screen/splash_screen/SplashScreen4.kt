@@ -72,7 +72,6 @@ fun SplashScreen4(
             ) {
                 Row(modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp)
                     .clickable {
                         loginController.navigate(LoginNavigation.SignIn.route)
                     }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {

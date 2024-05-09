@@ -8,6 +8,7 @@ data class EmotionModel(
 )
 
 object EmotionType{
+    val DEFAULT = EmotionModel("default", R.drawable.mood0)
     val DATAR   = EmotionModel("fine", R.drawable.mood1)
     val SEDIH   = EmotionModel("sad", R.drawable.mood2)
     val BAHAGIA = EmotionModel("awesome", R.drawable.mood3)

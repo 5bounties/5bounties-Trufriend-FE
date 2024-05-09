@@ -20,9 +20,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -56,6 +59,7 @@ import com.vbounties.trufriend.features.presentation.screen.yoga_screen.YogaScre
 //@Preview
 fun BottomNav(parentController: NavController = rememberNavController()){
     val bottomController = rememberNavController()
+    val selected = remember { mutableStateOf(0) }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         content = {
@@ -70,7 +74,7 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                     )
                 }
                 ){
-                    HomeScreen(parentController)
+                    HomeScreen(parentController, bottomController)
                 }
 
                 composable(BottomNavigation.Search.route, enterTransition = {
@@ -204,14 +208,15 @@ fun BottomNav(parentController: NavController = rememberNavController()){
             }
         },
         bottomBar = {
-            BottomNavBar(bottomController)
+            BottomNavBar(bottomController, selected.value){
+                selected.value = it
+            }
         }
     )
 }
 
 @Composable
-@Preview
-fun BottomNavBar(bottomController: NavController = rememberNavController()){
+fun BottomNavBar(bottomController: NavController = rememberNavController(), selected: Int = 0, onSelected: (Int) -> Unit){
     Card(modifier = Modifier
         .fillMaxWidth()
         .height(90.dp),
@@ -226,34 +231,68 @@ fun BottomNavBar(bottomController: NavController = rememberNavController()){
                 .fillMaxHeight()
                 .width(60.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { bottomController.navigate(BottomNavigation.Home.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                .clickable { bottomController.navigate(BottomNavigation.Home.route)
+                    onSelected(0)
+                           }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
-                    Image(painter = painterResource(id = R.drawable.home), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
+
+                    Icon(painter = painterResource(id = R.drawable.home), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f), tint = if(selected == 0){
+                        Color(0xFFC36528)
+                    } else{
+                        Color.Gray
+                    }
+                    )
                 }
-                Text(text = "Home", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
+                Text(text = "Home", modifier = Modifier, color = if(selected == 0){
+                    Color(0xFFC36528)
+                } else{
+                    Color.Gray
+                }, fontSize = 12.sp)
             }
 
             Column(modifier = Modifier
                 .fillMaxHeight()
                 .width(60.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { bottomController.navigate(BottomNavigation.Learn.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                .clickable { bottomController.navigate(BottomNavigation.Learn.route)
+                    onSelected(1)
+                           }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
-                    Image(painter = painterResource(id = R.drawable.edhub), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
+
+                    Icon(painter = painterResource(id = R.drawable.edhub), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f), tint = if(selected == 1){
+                        Color(0xFFC36528)
+                    } else{
+                        Color.Gray
+                    })
                 }
-                Text(text = "EdHub", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
+                Text(text = "EdHub", modifier = Modifier, color = if(selected == 1){
+                    Color(0xFFC36528)
+                } else{
+                    Color.Gray
+                }, fontSize = 12.sp)
             }
 
             Column(modifier = Modifier
                 .fillMaxHeight()
                 .width(60.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { bottomController.navigate(BottomNavigation.Tracker.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                .clickable { bottomController.navigate(BottomNavigation.Tracker.route)
+                    onSelected(2)
+                           }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
-                    Image(painter = painterResource(id = R.drawable.journal), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
+
+                    Icon(painter = painterResource(id = R.drawable.newjournal), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f), tint = if(selected == 2){
+                        Color(0xFFC36528)
+                    } else{
+                        Color.Gray
+                    })
                 }
 
-                Text(text = "Journal", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
+                Text(text = "Journal", modifier = Modifier, color = if(selected == 2){
+                    Color(0xFFC36528)
+                } else{
+                    Color.Gray
+                }, fontSize = 12.sp)
             }
 
             Column(modifier = Modifier
@@ -262,12 +301,21 @@ fun BottomNavBar(bottomController: NavController = rememberNavController()){
                 .clip(RoundedCornerShape(8.dp))
                 .clickable {
                     bottomController.navigate(BottomNavigation.Forum.route)
+                    onSelected(3)
                 }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
-                    Image(painter = painterResource(id = R.drawable.forum), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
+                    Icon(painter = painterResource(id = R.drawable.forum), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f), tint = if(selected == 3){
+                        Color(0xFFC36528)
+                    } else{
+                        Color.Gray
+                    })
                 }
 
-                Text(text = "Forum", modifier = Modifier, color = Color.Gray, fontSize = 12.sp)
+                Text(text = "Forum", modifier = Modifier, color = if(selected == 3){
+                    Color(0xFFC36528)
+                } else{
+                    Color.Gray
+                }, fontSize = 12.sp)
             }
         }
     }

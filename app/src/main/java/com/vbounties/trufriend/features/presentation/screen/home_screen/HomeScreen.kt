@@ -49,15 +49,21 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import com.vbounties.trufriend.R
 import com.vbounties.trufriend.features.data.remote.response.JournalData2
+import com.vbounties.trufriend.features.presentation.navigation.BottomNavigation
+import com.vbounties.trufriend.features.presentation.navigation.`object`.LoginNavigation
 import com.vbounties.trufriend.features.presentation.navigation.`object`.ParentNavigation
+import com.vbounties.trufriend.features.presentation.screen.forum_screen.ForumState
+import com.vbounties.trufriend.features.presentation.screen.forum_screen.ForumViewModel
 import com.vbounties.trufriend.features.presentation.screen.profile_screen.UserState
 
 @Composable
 @Preview
 fun HomeScreen(
-    parentController: NavController = rememberNavController()
+    parentController: NavController = rememberNavController(),
+    bottomController: NavController = rememberNavController()
 ){
     val viewModel = hiltViewModel<HomeViewModel>()
+    val viewModel2 = hiltViewModel<ForumViewModel>()
     val user = remember { mutableStateOf(UserState()) }
     val journal = remember { mutableStateOf(JournalState()) }
     val userAvatar = remember{ mutableStateOf("") }
@@ -70,6 +76,13 @@ fun HomeScreen(
     viewModel.getJournal {
         journal.value = it
     }
+
+    val forum = remember { mutableStateOf(ForumState()) }
+    viewModel2.getAllPost {
+        forum.value = it
+    }
+
+
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -170,7 +183,27 @@ fun HomeScreen(
                     }
                 }
             }
-            item { Spacer(modifier = Modifier.padding(16.dp)) }
+            item {
+                if(journal.value.data.data.filter { it.userId.equals(user.value.data.id) }.isEmpty()){
+                    Card(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(40.dp),
+                        colors = CardDefaults.cardColors(Color(0xFFFCF6EF)),
+                        border = BorderStroke(1.dp, Color(0xFFC36528))
+                    ) {
+                        Row(modifier = Modifier
+                            .fillMaxSize()
+                            .clickable {
+                                bottomController.navigate(BottomNavigation.Tracker.route)
+                            }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                            Text(text = "Tambahkan Jurnal", color = Color(0xFFC36528), fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+                        }
+                    }
+                    Spacer(modifier = Modifier.padding(16.dp))
+                } else {
+                    Spacer(modifier = Modifier.padding(16.dp))
+                }
+            }
             item {
                 Text(text = "Rekomendasi minggu ini!", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
             }
@@ -203,7 +236,7 @@ fun HomeScreen(
             item { Spacer(modifier = Modifier.padding(8.dp)) }
             item{
                 LazyRow(modifier = Modifier.fillMaxWidth()) {
-                    items(3){
+                    items(forum.value.data.data){
                         Card(modifier = Modifier
                             .height(220.dp)
                             .width(280.dp),
@@ -233,7 +266,7 @@ fun HomeScreen(
                                 .fillMaxWidth()
                                 .height(100.dp)
                                 .padding(horizontal = 16.dp)) {
-
+                                AsyncImage(model = "https://uitrssskfwjwscymocmu.supabase.co/storage/v1/object/public/avatar/" + it.imageUrl.substringAfterLast("/"), contentDescription = "avatar", imageLoader = ImageLoader(context), modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
                             }
                             Spacer(modifier = Modifier.padding(4.dp))
                             Column(
@@ -241,7 +274,7 @@ fun HomeScreen(
                                     .fillMaxWidth()
                                     .padding(horizontal = 16.dp)
                             ) {
-                                Text(text = "Teman-teman, lihat re-kreasi van gog...",  fontSize = 12.sp)
+                                Text(text = it.content,  fontSize = 12.sp, maxLines = 1)
                             }
                         }
                         Spacer(modifier = Modifier.padding(8.dp))

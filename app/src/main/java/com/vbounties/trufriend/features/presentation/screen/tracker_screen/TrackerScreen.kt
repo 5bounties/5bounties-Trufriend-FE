@@ -74,14 +74,12 @@ fun TrackerScreen(){
                             viewModel.postJournal(it)
                         }
                     } else {
-                        Text(text = "Catatan Moodmu :)", fontWeight = FontWeight.SemiBold, fontSize = 24.sp)
-                        Spacer(modifier = Modifier.height(24.dp))
                         Card(modifier = Modifier
                             .fillMaxWidth()
                             .height(48.dp),
                             colors = CardDefaults.cardColors(Color.White),
                             border = BorderStroke(1.dp, Color.Black),
-                            elevation = CardDefaults.cardElevation(8.dp)
+                            elevation = CardDefaults.cardElevation(2.dp)
                         ) {
                             Row(modifier = Modifier
                                 .fillMaxSize()
@@ -98,12 +96,16 @@ fun TrackerScreen(){
                             }
                         }
                         Spacer(modifier = Modifier.height(16.dp))
+                        Text(text = "Minggu ke-2 Bulan Mei", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
+                        Spacer(modifier = Modifier.height(16.dp))
+
                         LazyRow(modifier = Modifier
                             .fillMaxWidth()
                             .height(300.dp)) {
                             items(4){
-                                JournalCard()
-                                Spacer(modifier = Modifier.width(16.dp))
+                                Spacer(modifier = Modifier.width(48.dp))
+                                CalendarWidget()
+                                Spacer(modifier = Modifier.width(48.dp))
                             }
                         }
                     }

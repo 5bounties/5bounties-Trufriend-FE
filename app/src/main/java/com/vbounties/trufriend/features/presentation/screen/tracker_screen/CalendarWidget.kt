@@ -41,7 +41,7 @@ fun CalendarWidget(){
 
 @Composable
 @Preview
-fun DayWidget(day: String = "Mon", emotionModel: EmotionModel = EmotionType.DATAR){
+fun DayWidget(day: String = "Mon", emotionModel: EmotionModel = EmotionType.DEFAULT){
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.padding(4.dp))
         Text(text = day)
