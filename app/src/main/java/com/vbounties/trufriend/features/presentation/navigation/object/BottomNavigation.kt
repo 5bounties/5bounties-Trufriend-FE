@@ -10,6 +10,7 @@ sealed class BottomNavigation(val route: String) {
     object LearnDetail2 : BottomNavigation("learnDetail2")
     object LearnDetail3 : BottomNavigation("learnDetail3")
     object LearnDetail4 : BottomNavigation("learnDetail4")
+    object LearnDetail5 : BottomNavigation("learnDetail5")
     object Yoga: BottomNavigation("yoga")
     object YogaDetails: BottomNavigation("yogaDetails")
     object Tracker : BottomNavigation("tracker")

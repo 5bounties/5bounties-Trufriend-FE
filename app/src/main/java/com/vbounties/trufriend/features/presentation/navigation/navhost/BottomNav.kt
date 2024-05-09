@@ -49,6 +49,7 @@ import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.
 import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen2
 import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen3
 import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen4
+import com.vbounties.trufriend.features.presentation.screen.learn_detail_screen.LearnDetailScreen5
 import com.vbounties.trufriend.features.presentation.screen.learn_screen.LearnScreen
 import com.vbounties.trufriend.features.presentation.screen.meditation_screen.MeditationScreen
 import com.vbounties.trufriend.features.presentation.screen.search_screen.SearchScreen
@@ -182,6 +183,19 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                 }
                 ){
                     LearnDetailScreen4(bottomController)
+                }
+
+                composable(BottomNavigation.LearnDetail5.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    LearnDetailScreen5(bottomController)
                 }
 
                 composable(BottomNavigation.Yoga.route, enterTransition = {

@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
@@ -117,7 +118,10 @@ fun LearnDetailScreen1(
                                 Card(modifier = Modifier
                                     .fillMaxWidth()
                                     .height(160.dp)
-                                    .padding(end = 16.dp),
+                                    .padding(end = 16.dp).clickable {
+                                        bottomController.navigate(BottomNavigation.LearnDetail5.route)
+                                    }.clip(
+                                        RoundedCornerShape(16.dp)),
                                     colors = CardDefaults.cardColors(Color(0xFFF0DAC3)),
                                     elevation = CardDefaults.cardElevation(2.dp)
                                 ) {
@@ -157,7 +161,10 @@ fun LearnDetailScreen1(
                                 Card(modifier = Modifier
                                     .fillMaxWidth()
                                     .height(160.dp)
-                                    .padding(end = 16.dp),
+                                    .padding(end = 16.dp).height(180.dp).clickable {
+                                        bottomController.navigate(BottomNavigation.LearnDetail5.route)
+                                    }.clip(
+                                        RoundedCornerShape(16.dp)),
                                     colors = CardDefaults.cardColors(Color(0xFFF0DAC3)),
                                     elevation = CardDefaults.cardElevation(2.dp)
                                 ) {

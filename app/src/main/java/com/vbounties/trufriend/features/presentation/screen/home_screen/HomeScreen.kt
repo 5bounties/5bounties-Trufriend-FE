@@ -221,7 +221,10 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 Card(modifier = Modifier
                     .fillMaxWidth()
-                    .height(80.dp),
+                    .height(80.dp).clickable {
+                        bottomController.navigate(BottomNavigation.LearnDetail5.route)
+                        onChangeScreen(1)
+                    }.clip(RoundedCornerShape(16.dp)),
                     colors = CardDefaults.cardColors(Color(0xFFFAE6D1)),
                     elevation = CardDefaults.cardElevation(2.dp)
                 ){

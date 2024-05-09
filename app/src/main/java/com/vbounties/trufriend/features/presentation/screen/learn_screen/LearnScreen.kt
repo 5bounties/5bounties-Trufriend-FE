@@ -19,12 +19,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -54,7 +56,10 @@ fun LearnScreen(
             item {
                 Card(modifier = Modifier
                     .fillMaxWidth()
-                    .height(180.dp)
+                    .height(180.dp).clickable {
+                        bottomController.navigate(BottomNavigation.LearnDetail5.route)
+                    }.clip(
+                        RoundedCornerShape(16.dp))
                     .padding(horizontal = 16.dp),
                     colors = CardDefaults.cardColors(Color(0xFFF0DAC3)),
                     elevation = CardDefaults.cardElevation(2.dp)
