@@ -48,6 +48,7 @@ import com.vbounties.trufriend.features.presentation.screen.learn_screen.LearnSc
 import com.vbounties.trufriend.features.presentation.screen.meditation_screen.MeditationScreen
 import com.vbounties.trufriend.features.presentation.screen.search_screen.SearchScreen
 import com.vbounties.trufriend.features.presentation.screen.tracker_screen.TrackerScreen
+import com.vbounties.trufriend.features.presentation.screen.yoga_screen.YogaScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -120,7 +121,7 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                     )
                 }
                 ){
-                    MeditationScreen()
+                    MeditationScreen(bottomController)
                 }
 
                 composable(BottomNavigation.LearnDetail1.route, enterTransition = {
@@ -173,6 +174,19 @@ fun BottomNav(parentController: NavController = rememberNavController()){
                 ){
                     LearnDetailScreen4(bottomController)
                 }
+
+                composable(BottomNavigation.Yoga.route, enterTransition = {
+                    return@composable slideIntoContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Up, tween(700)
+                    )
+                }, popExitTransition = {
+                    return@composable slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Down, tween(700)
+                    )
+                }
+                ){
+                    YogaScreen(bottomController)
+                }
             }
         },
         bottomBar = {
@@ -196,7 +210,8 @@ fun BottomNavBar(bottomController: NavController = rememberNavController()){
             .padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){
             Column(modifier = Modifier
                 .fillMaxHeight()
-                .width(60.dp).clip(RoundedCornerShape(8.dp))
+                .width(60.dp)
+                .clip(RoundedCornerShape(8.dp))
                 .clickable { bottomController.navigate(BottomNavigation.Home.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.home), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
@@ -206,7 +221,8 @@ fun BottomNavBar(bottomController: NavController = rememberNavController()){
 
             Column(modifier = Modifier
                 .fillMaxHeight()
-                .width(60.dp).clip(RoundedCornerShape(8.dp))
+                .width(60.dp)
+                .clip(RoundedCornerShape(8.dp))
                 .clickable { bottomController.navigate(BottomNavigation.Learn.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.edhub), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
@@ -216,7 +232,8 @@ fun BottomNavBar(bottomController: NavController = rememberNavController()){
 
             Column(modifier = Modifier
                 .fillMaxHeight()
-                .width(60.dp).clip(RoundedCornerShape(8.dp))
+                .width(60.dp)
+                .clip(RoundedCornerShape(8.dp))
                 .clickable { bottomController.navigate(BottomNavigation.Tracker.route) }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.journal), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
@@ -227,8 +244,9 @@ fun BottomNavBar(bottomController: NavController = rememberNavController()){
 
             Column(modifier = Modifier
                 .fillMaxHeight()
-                .width(60.dp).clip(RoundedCornerShape(8.dp))
-                .clickable {  }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                .width(60.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .clickable { }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Box(modifier = Modifier.size(40.dp), contentAlignment = Alignment.Center){
                     Image(painter = painterResource(id = R.drawable.forum), contentDescription = "edhub", modifier = Modifier.fillMaxSize(0.7f))
                 }

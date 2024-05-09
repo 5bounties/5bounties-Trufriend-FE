@@ -166,7 +166,9 @@ fun LearnScreen(
                 ){
                     Row(modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                        .padding(horizontal = 16.dp, vertical = 8.dp).clickable {
+                            bottomController.navigate(BottomNavigation.Yoga.route)
+                        }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                         Image(painter = painterResource(id = R.drawable.yoga), contentDescription = "mood", modifier = Modifier.fillMaxHeight())
                         Spacer(modifier = Modifier.padding(16.dp))
                         Column(modifier = Modifier) {
@@ -188,7 +190,9 @@ fun LearnScreen(
                 ){
                     Row(modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                        .padding(horizontal = 16.dp, vertical = 8.dp).clickable {
+                                 bottomController.navigate(BottomNavigation.Meditation.route)
+                        }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                         Image(painter = painterResource(id = R.drawable.musictherapy), contentDescription = "mood", modifier = Modifier.fillMaxHeight())
                         Spacer(modifier = Modifier.padding(16.dp))
                         Column(modifier = Modifier) {
